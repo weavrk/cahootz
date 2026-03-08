@@ -10,6 +10,7 @@ This project explores different UX patterns for adding recurring booking functio
 - **InSequence** (`request-flex-insequence.html`) - Sequential flow approach
 - **CalendarView** (`request-flex-calendarview.html`) - Calendar-first approach
 - **NewTabFlow** (`request-flex-newtabflow.html`) - Tab-based interface approach
+- **Opx** (`request-flex-opx.html`) - Opx variant (same as InSequence for now)
 
 All variants share the same navigation and overall layout. Navigation links are fixed at the bottom of the page (24px from bottom, 304px from left) to easily switch between prototypes.
 
