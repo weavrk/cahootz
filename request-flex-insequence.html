@@ -269,7 +269,7 @@
       font-size: 16px;
       color: var(--text-primary);
       background: var(--main-white);
-      width: 230px;
+      width: 300px;
       height: 40px;
     }
     .form-select {
@@ -380,7 +380,7 @@
     .schedule-badge { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 6px; background: var(--navy-100); color: var(--app-primary); }
 
     /* Date input with calendar icon */
-    .date-input-wrap { position: relative; width: 230px; }
+    .date-input-wrap { position: relative; width: 300px; }
     .date-input { width: 100%; padding: 8px 36px 8px 12px; }
     .date-icon {
       position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
@@ -411,7 +411,8 @@
     .start-end-time-group { display: flex; align-items: center; gap: 6px; }
     .start-end-time-group .form-select-hour { width: 96px; flex-shrink: 0; }
     .start-end-time-group .form-select-min { width: 96px; flex-shrink: 0; color: var(--app-secondary); }
-    .start-end-time-group .time-sep { font-size: 16px; color: var(--app-secondary); padding: 0 2px; line-height: 1; }
+    .time-sep-wrap { width: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .start-end-time-group .time-sep { font-size: 16px; color: var(--app-secondary); line-height: 1; }
     .start-end-time-group .form-select-ampm { width: 80px; flex-shrink: 0; color: var(--app-secondary); }
     .start-end-time-group:has(.form-select-hour:not(.placeholder)) .form-select-min,
     .start-end-time-group:has(.form-select-hour:not(.placeholder)) .form-select-ampm,
@@ -420,7 +421,7 @@
     .flex-pills-stacked { flex-direction: column; width: 100%; }
     .flex-pills-stacked .flex-pill { flex: none; width: 100%; }
     .flex-pill {
-      height: 40px; padding: 0 10px; border: 1px solid var(--black-alpha-200); border-radius: 6px;
+      height: 32px; padding: 0 10px; border: 1px solid var(--black-alpha-200); border-radius: 6px;
       background: var(--main-white); font-size: 16px; font-weight: 400; color: var(--text-primary);
       cursor: pointer; white-space: nowrap; transition: all 0.15s; font-family: inherit;
       display: inline-flex; align-items: center; justify-content: center;
@@ -434,20 +435,22 @@
 
     /* Repeat + Frequency row */
     .repeat-frequency-row { flex-wrap: nowrap; gap: 10px; }
-    .repeat-frequency-row .repeat-item { width: 230px; flex-shrink: 0; }
+    .repeat-frequency-row .repeat-item { width: 300px; flex-shrink: 0; }
     .repeat-frequency-row .frequency-item { flex: 1; min-width: 0; }
     .repeat-frequency-row .frequency-item .form-select { width: 100%; }
 
     /* Location + Number of People row */
     .location-people-row { flex-wrap: nowrap; gap: 10px; }
-    .location-people-row .location-item { width: 230px; flex-shrink: 0; }
+    .location-people-row .location-item { width: 300px; flex-shrink: 0; }
     .location-people-row .people-item { flex: 1; min-width: 0; }
     .location-people-row .people-item .form-select { width: 100%; }
 
     /* Ends After row */
-    .ends-after-row { display: flex; align-items: center; gap: 16px; }
+    .ends-after-row { display: flex; align-items: center; gap: 24px; }
+    .date-input-wrap.ends-date { width: 218px; }
     .ends-date { flex-shrink: 0; }
     .or-label { font-size: 16px; color: var(--app-primary); flex-shrink: 0; }
+    .shifts-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
     .shifts-input {
       width: 80px; flex-shrink: 0; padding: 8px 12px;
       border: 1px solid var(--black-alpha-200); border-radius: 6px;
@@ -588,8 +591,9 @@
                       <option value="10">10</option>
                       <option value="11">11</option>
                     </select>
-                    <span class="time-sep">:</span>
+                    <div class="time-sep-wrap"><span class="time-sep">:</span></div>
                     <select class="form-select form-select-min">
+                      <option value="">Select</option>
                       <option value="00">00</option>
                       <option value="15">15</option>
                       <option value="30">30</option>
@@ -619,8 +623,9 @@
                       <option value="10">10</option>
                       <option value="11">11</option>
                     </select>
-                    <span class="time-sep">:</span>
+                    <div class="time-sep-wrap"><span class="time-sep">:</span></div>
                     <select class="form-select form-select-min">
+                      <option value="">Select</option>
                       <option value="00">00</option>
                       <option value="15">15</option>
                       <option value="30">30</option>
@@ -655,28 +660,17 @@
           <div class="form-section">
             <div class="form-row repeat-frequency-row" style="margin-bottom:16px;">
               <div class="form-row-item repeat-item">
-                <label class="form-label">Repeat</label>
-                <select class="form-select">
+                <label class="form-label">Repeat Shift</label>
+                <select id="repeat-select" class="form-select">
                   <option>Does not repeat</option>
-                  <option>Daily</option>
-                  <option>Weekly</option>
-                  <option>Every 2 Weeks</option>
-                  <option>Monthly</option>
-                </select>
-              </div>
-              <div class="form-row-item frequency-item">
-                <label class="form-label">Frequency</label>
-                <select class="form-select">
-                  <option value="">Select</option>
-                  <option>1x per week</option>
-                  <option>2x per week</option>
-                  <option>3x per week</option>
-                  <option>4x per week</option>
-                  <option>5x per week</option>
+                  <option>Repeat daily</option>
+                  <option>Repeat weekly</option>
+                  <option>Repeat 2 weeks</option>
+                  <option>Repeat 4 weeks</option>
                 </select>
               </div>
             </div>
-            <div>
+            <div id="ends-after-section" style="display:none;">
               <label class="form-label">Ends After</label>
               <div class="ends-after-row">
                 <div class="date-input-wrap ends-date">
@@ -684,8 +678,10 @@
                   <i data-lucide="calendar" class="date-icon"></i>
                 </div>
                 <span class="or-label">or</span>
-                <input type="number" min="1" class="shifts-input" placeholder="Enter" />
-                <span class="shifts-label">Shifts</span>
+                <div class="shifts-wrap">
+                  <input type="number" min="1" class="shifts-input" placeholder="Enter" />
+                  <span class="shifts-label">Shifts</span>
+                </div>
               </div>
             </div>
           </div>
@@ -699,7 +695,7 @@
                 <label class="form-label">Location</label>
                 <select id="location-select" class="form-select">
                   <option value="">Select</option>
-                  <option value="galleria" selected>Galleria - Houston</option>
+                  <option value="galleria">Galleria - Houston</option>
                   <option value="downtown">Downtown - Austin</option>
                   <option value="midtown">Midtown - Dallas</option>
                 </select>
@@ -827,11 +823,17 @@
         });
       });
 
-      var sel = document.getElementById('location-select');
-      var col = document.getElementById('right-column');
-      function updateCol() { col.classList.toggle('visible', !!sel.value); }
-      sel.addEventListener('change', updateCol);
-      updateCol();
+      var repeatSel = document.getElementById('repeat-select');
+      var endsAfter = document.getElementById('ends-after-section');
+      if (repeatSel && endsAfter) {
+        function updateEndsAfter() {
+          endsAfter.style.display = repeatSel.value === 'Does not repeat' ? 'none' : 'block';
+        }
+        repeatSel.addEventListener('change', updateEndsAfter);
+        updateEndsAfter();
+      }
+
+      // Right column always visible in insequence
 
       // Flex time pills — mutually exclusive toggle
       var flexPills = document.querySelectorAll('.flex-pill');

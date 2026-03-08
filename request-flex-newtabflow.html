@@ -643,7 +643,7 @@
             <label class="form-label">Location</label>
             <select id="location-select" class="form-select" style="width:100%; max-width:280px;">
               <option value="">Choose Location</option>
-              <option value="galleria" selected>Galleria - Houston</option>
+              <option value="galleria">Galleria - Houston</option>
               <option value="downtown">Downtown - Austin</option>
               <option value="midtown">Midtown - Dallas</option>
             </select>
@@ -905,11 +905,7 @@
         });
       });
 
-      var sel = document.getElementById('location-select');
-      var col = document.getElementById('right-column');
-      function updateCol() { col.classList.toggle('visible', !!sel.value); }
-      sel.addEventListener('change', updateCol);
-      updateCol();
+      // Right column always visible in newtabflow
 
       var toggle = document.getElementById('flexible-toggle');
       var switchRow = document.getElementById('flexible-switch');
