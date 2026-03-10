@@ -117,6 +117,7 @@
       color: var(--text-primary);
       display: flex;
       flex-direction: column;
+      gap: 8px;
       background: var(--background-sky);
     }
 
@@ -558,6 +559,8 @@
     }
     .flexible-label-wrap { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; width: fit-content; }
     .flexible-label-wrap .info-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-hint); }
+    .repeat-item .info-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-hint); }
+    .repeat-item .form-label { display: flex; align-items: center; gap: 6px; }
     .info-tooltip-wrap { position: relative; display: inline-flex; align-items: center; }
     .info-tooltip-wrap .info-icon { cursor: default; }
     .info-tooltip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); width: 220px; background: #18181B; color: #fff; font-size: 13px; font-weight: 400; line-height: 1.45; padding: 8px 10px; border-radius: 8px; pointer-events: none; opacity: 0; transition: opacity 0.15s; white-space: normal; z-index: 100; }
@@ -823,7 +826,12 @@
           <div class="form-section">
             <div class="form-row repeat-frequency-row" style="margin-bottom:16px;">
               <div class="form-row-item repeat-item">
-                <label class="form-label">Repeat Shift</label>
+                <label class="form-label">Repeat Shift
+                  <span class="info-tooltip-wrap">
+                    <i data-lucide="info" class="info-icon"></i>
+                    <span class="info-tooltip">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore. Ut enim ad minim veniam, quis nostrud exercitation. Duis aute irure dolor in reprehenderit in voluptate.</span>
+                  </span>
+                </label>
                 <select id="repeat-select" class="form-select">
                   <option>Does not repeat</option>
                   <option>Repeat daily</option>
