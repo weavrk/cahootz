@@ -803,6 +803,106 @@
     .roster-stats { display: flex; gap: 12px; font-size: 12px; color: var(--text-hint); }
     .roster-stat strong { color: var(--app-primary); font-weight: 600; }
     .roster-summary { font-size: 12px; color: var(--app-secondary); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* Select Reflexers — form field that opens the prefs modal (Opt 01) */
+    .select-reflexers-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 8px 12px; min-height: 40px;
+      border: 1px solid var(--black-alpha-200); border-radius: 6px;
+      background: var(--main-white); color: var(--text-primary);
+      font-family: inherit; font-size: 16px; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .select-reflexers-btn:hover { border-color: var(--app-secondary); }
+    .select-reflexers-btn .srb-content { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .select-reflexers-btn .srb-text { color: var(--app-secondary); font-size: 16px; }
+    .select-reflexers-btn.has-selection .srb-text { color: var(--app-primary); }
+    .select-reflexers-btn .srb-chevron { width: 18px; height: 18px; color: var(--app-secondary); flex-shrink: 0; }
+    .srb-avatars { display: inline-flex; align-items: center; }
+    .srb-avatars .srb-avatar { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; background: var(--gray-100); object-fit: cover; margin-right: -8px; box-sizing: border-box; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--app-secondary); overflow: hidden; }
+    .srb-avatars .srb-avatar:last-child { margin-right: 0; }
+    .srb-avatars .srb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Prefs modal — "Select Preferences" worker picker */
+    .prefs-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: flex-start; justify-content: center; z-index: 1300; padding: 48px 16px; overflow-y: auto; }
+    .prefs-overlay.visible { display: flex; }
+    .prefs-modal { background: var(--main-white); width: 100%; max-width: 480px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); display: flex; flex-direction: column; max-height: calc(100vh - 96px); overflow: hidden; }
+    .prefs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; }
+    .prefs-title { font-size: 18px; font-weight: 600; color: var(--app-primary); margin: 0; }
+    .prefs-close { background: none; border: none; cursor: pointer; padding: 4px; color: var(--app-secondary); display: flex; align-items: center; justify-content: center; }
+    .prefs-close:hover { color: var(--app-primary); }
+    .prefs-context { display: flex; flex-direction: column; gap: 4px; padding: 0 20px 16px; }
+    .prefs-context-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--app-primary); }
+    .prefs-context-row .lucide, .prefs-context-row svg { width: 14px; height: 14px; color: var(--app-secondary); flex-shrink: 0; }
+    .prefs-summary {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin: 0 20px 12px; padding: 10px 12px;
+      background: var(--gray-50); border-radius: 8px;
+    }
+    .prefs-summary-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .prefs-summary-count { font-size: 14px; font-weight: 500; color: var(--app-primary); white-space: nowrap; }
+    .prefs-summary-link { font-size: 13px; color: var(--app-secondary); background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; }
+    .prefs-summary-link:hover { color: var(--app-primary); text-decoration: underline; }
+    .prefs-search-wrap { position: relative; padding: 0 20px; margin-bottom: 12px; }
+    .prefs-search-wrap .search-icon {
+      position: absolute; left: 32px; top: 0; bottom: 0;
+      width: 16px; height: 16px; margin: auto 0;
+      color: var(--app-secondary); pointer-events: none;
+    }
+    .prefs-search { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--black-alpha-200); border-radius: 6px; font-family: inherit; font-size: 14px; color: var(--text-primary); background: var(--main-white); }
+    .prefs-search::placeholder { color: var(--text-hint); }
+    .prefs-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 12px; }
+    .prefs-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 999px;
+      background: var(--main-white); border: 1px solid var(--black-alpha-200);
+      font-family: inherit; font-size: 14px; font-weight: 500;
+      color: var(--app-primary); cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .prefs-chip:hover { background: var(--gray-50); }
+    .prefs-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .prefs-chip.active { background: var(--app-primary); color: #fff; border-color: var(--app-primary); }
+    .prefs-chip.active:hover { background: var(--stone-900); border-color: var(--stone-900); }
+    .prefs-list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 8px 12px; }
+    .prefs-state { padding: 32px 0; text-align: center; color: var(--text-hint); font-size: 14px; }
+    .prefs-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .prefs-row:hover { background: var(--gray-50); }
+    .prefs-row.selected { background: var(--gray-50); }
+    .prefs-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gray-100); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--app-secondary); overflow: hidden; position: relative; }
+    .prefs-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .prefs-row.selected .prefs-avatar { box-shadow: 0 0 0 2px var(--app-primary); }
+    .prefs-meta { flex: 1; min-width: 0; }
+    .prefs-name { font-size: 14px; font-weight: 500; color: var(--app-primary); margin: 0; line-height: 1.3; }
+    .prefs-sub { font-size: 12px; color: var(--text-hint); margin-top: 2px; }
+    .prefs-checkbox {
+      width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--app-tertiary);
+      background: var(--main-white); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; cursor: pointer; transition: background 0.15s, border-color 0.15s;
+    }
+    .prefs-row.selected .prefs-checkbox { background: var(--app-primary); border-color: var(--app-primary); }
+    .prefs-checkbox svg { width: 14px; height: 14px; color: #fff; opacity: 0; }
+    .prefs-row.selected .prefs-checkbox svg { opacity: 1; }
+    .prefs-pagination { display: flex; align-items: center; justify-content: space-between; padding: 8px 20px 12px; font-size: 12px; color: var(--text-hint); }
+    .prefs-page-btns { display: flex; gap: 4px; }
+    .prefs-page-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--app-secondary); display: flex; align-items: center; justify-content: center; }
+    .prefs-page-btn:disabled { color: var(--app-tertiary); cursor: not-allowed; }
+    .prefs-page-btn:hover:not(:disabled) { color: var(--app-primary); }
+    .prefs-footer { display: flex; gap: 8px; padding: 12px 20px 16px; border-top: 1px solid var(--black-alpha-100); background: var(--main-white); }
+    .prefs-cancel-btn, .prefs-save-btn {
+      padding: 8px 20px; border-radius: 8px; font-family: inherit;
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .prefs-cancel-btn { flex: 1; background: var(--main-white); color: var(--app-primary); border: 1px solid var(--black-alpha-200); }
+    .prefs-cancel-btn:hover { background: var(--gray-50); }
+    .prefs-save-btn { width: 300px; flex-shrink: 0; background: var(--app-primary); color: #fff; border: 1px solid var(--app-primary); }
+    .prefs-save-btn:hover { background: var(--stone-900); border-color: var(--stone-900); }
   </style>
 </head>
 <body>
@@ -1431,6 +1531,7 @@
     }
 
     /* ---- Reflexers roster (Supabase) — Austin only, gendered avatar fallback ---- */
+    var BRAND = 'Ariat';  // Retailer this prototype is themed for
     var SUPABASE_URL = 'https://kxfbismfpmjwvemfznvm.supabase.co';
     var SUPABASE_KEY = 'sb_publishable_nSYVilgXE31QZXPtOEmTwQ_pUO8AE3P';
     var supa = (window.supabase && window.supabase.createClient)
@@ -1514,11 +1615,9 @@
     function avatarFor(worker) {
       var g = (worker.gender || '').toLowerCase().trim();
       var bank = AVATARS[g];
-      if (bank && bank.length) {
-        var idx = hashStr(worker.id || worker.name || '') % bank.length;
-        return 'images/avatars/' + g + '/' + bank[idx];
-      }
-      return worker.photo || null;
+      if (!bank || !bank.length) return null;
+      var idx = hashStr(worker.id || worker.name || '') % bank.length;
+      return 'images/avatars/' + g + '/' + bank[idx];
     }
 
     function avatarHtml(worker) {
@@ -1571,7 +1670,7 @@
       if (!supa) { if (content) content.innerHTML = '<div class="roster-state">Supabase client unavailable.</div>'; return; }
       if (content) content.innerHTML = '<div class="roster-state">Loading…</div>';
       supa.from('cahootz_workers')
-        .select('id, name, market, photo, gender, current_tier, shift_verified, actively_looking, shifts_on_reflex, unique_store_count, retailer_summary, about_me, experience_level')
+        .select('id, name, market, gender, current_tier, shift_verified, actively_looking, shifts_on_reflex, unique_store_count, retailer_summary, about_me, experience_level, favorited_by_brands, brands_worked')
         .eq('market', 'Austin')
         .order('name', { ascending: true })
         .then(function(res) {
@@ -1608,6 +1707,269 @@
       var overlay = document.getElementById('roster-overlay');
       if (overlay) overlay.addEventListener('click', function(e) { if (e.target === overlay) closeRoster(); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeRoster(); });
+    }
+
+    /* ---- Select Preferences modal (Opt 01) ---- */
+    var prefsState = {
+      committed: new Set(),     // saved selection (persists after Save)
+      draft: new Set(),         // working selection (committed clone while modal is open)
+      page: 0,
+      pageSize: 10,
+      query: '',
+      onlySelected: false,      // toggled by "View Selections" link
+      filters: { favorites: false, approved: false }
+    };
+
+    // Real filters tied to BRAND (Ariat).
+    //   favorites → cahootz_workers.favorited_by_brands jsonb: ["Ariat", "Fossil", ...]
+    //   approved  → cahootz_workers.brands_worked jsonb: [{"name":"Ariat", ...}, ...]
+    function isFavorite(w) {
+      var arr = w.favorited_by_brands;
+      return Array.isArray(arr) && arr.indexOf(BRAND) !== -1;
+    }
+    function isApproved(w) {
+      var arr = w.brands_worked;
+      if (!Array.isArray(arr)) return false;
+      for (var i = 0; i < arr.length; i++) {
+        var item = arr[i];
+        if (item && item.name === BRAND) return true;
+      }
+      return false;
+    }
+
+    function fetchPrefsRoster(cb) {
+      if (rosterCache) { cb(rosterCache); return; }
+      if (!supa) { cb([]); return; }
+      supa.from('cahootz_workers')
+        .select('id, name, gender, photo, shifts_on_reflex, favorited_by_brands, brands_worked')
+        .eq('market', 'Austin')
+        .order('name', { ascending: true })
+        .then(function(res) { rosterCache = res.data || []; cb(rosterCache); });
+    }
+
+    function prefsFiltered() {
+      var q = prefsState.query.trim().toLowerCase();
+      var rows = rosterCache || [];
+      if (prefsState.onlySelected) rows = rows.filter(function(w) { return prefsState.draft.has(w.id); });
+      if (prefsState.filters.favorites) rows = rows.filter(isFavorite);
+      if (prefsState.filters.approved) rows = rows.filter(isApproved);
+      if (q) rows = rows.filter(function(w) { return (w.name || '').toLowerCase().indexOf(q) !== -1; });
+      return rows;
+    }
+
+    function renderPrefsChips() {
+      document.querySelectorAll('#prefs-chips .prefs-chip').forEach(function(chip) {
+        var key = chip.getAttribute('data-filter');
+        var on = !!prefsState.filters[key];
+        chip.classList.toggle('active', on);
+        var label = chip.querySelector('span') ? chip.querySelector('span').textContent : '';
+        chip.innerHTML = '<i data-lucide="' + (on ? 'x' : 'plus') + '"></i><span>' + label + '</span>';
+      });
+    }
+
+    function prefsRowHtml(w) {
+      var selected = prefsState.draft.has(w.id);
+      var src = avatarFor(w);
+      var avatar = src
+        ? '<img src="' + escapeHtml(src) + '" alt="">'
+        : escapeHtml(initials(w.name));
+      var count = w.shifts_on_reflex != null ? w.shifts_on_reflex : 0;
+      var sub = count + (count === 1 ? ' Flex' : ' Flexes');
+      return '<div class="prefs-row' + (selected ? ' selected' : '') + '" data-id="' + escapeHtml(w.id) + '">' +
+        '<div class="prefs-avatar">' + avatar + '</div>' +
+        '<div class="prefs-meta">' +
+          '<p class="prefs-name">' + escapeHtml(shortName(w.name)) + '</p>' +
+          '<div class="prefs-sub">' + sub + '</div>' +
+        '</div>' +
+        '<div class="prefs-checkbox"><i data-lucide="check"></i></div>' +
+      '</div>';
+    }
+
+    function renderPrefs() {
+      var list = document.getElementById('prefs-list');
+      var info = document.getElementById('prefs-pagination-info');
+      var prev = document.getElementById('prefs-prev');
+      var next = document.getElementById('prefs-next');
+      if (!list) return;
+
+      var rows = prefsFiltered();
+      var total = rows.length;
+      var pageSize = prefsState.pageSize;
+      var maxPage = Math.max(0, Math.ceil(total / pageSize) - 1);
+      if (prefsState.page > maxPage) prefsState.page = maxPage;
+      var start = prefsState.page * pageSize;
+      var end = Math.min(start + pageSize, total);
+      var slice = rows.slice(start, end);
+
+      list.innerHTML = slice.length
+        ? slice.map(prefsRowHtml).join('')
+        : '<div class="prefs-state">No reflexers found.</div>';
+
+      if (info) info.textContent = total ? ('Showing ' + (start + 1) + '–' + end + ' of ' + total) : 'Showing 0 of 0';
+      if (prev) prev.disabled = prefsState.page === 0;
+      if (next) next.disabled = prefsState.page >= maxPage;
+
+      // Update count + avatar preview in summary
+      var count = prefsState.draft.size;
+      var countEl = document.getElementById('prefs-summary-count');
+      if (countEl) countEl.textContent = count + ' Selected';
+      var avEl = document.getElementById('prefs-summary-avatars');
+      if (avEl) avEl.innerHTML = prefsAvatarsHtml(Array.from(prefsState.draft).slice(0, 3));
+
+      renderPrefsChips();
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+
+    function prefsAvatarsHtml(ids) {
+      if (!rosterCache) return '';
+      var byId = {};
+      rosterCache.forEach(function(w) { byId[w.id] = w; });
+      return ids.map(function(id) {
+        var w = byId[id];
+        if (!w) return '';
+        var src = avatarFor(w);
+        return '<span class="srb-avatar">' + (src ? '<img src="' + escapeHtml(src) + '" alt="">' : escapeHtml(initials(w.name))) + '</span>';
+      }).join('');
+    }
+
+    function syncPrefsContext() {
+      // Pull current form values into the modal context bar
+      var loc = document.getElementById('location-select');
+      var locText = loc && loc.options[loc.selectedIndex] && loc.value
+        ? loc.options[loc.selectedIndex].textContent
+        : 'Select a location';
+      var dateInput = document.querySelector('#variant-host .date-input');
+      var dateText = (dateInput && dateInput.value) ? dateInput.value : 'Select a date';
+      // Time: read start/end from the form
+      var startBlock = document.querySelector('#variant-host .start-block');
+      var endBlock = document.querySelector('#variant-host .end-block');
+      function readTime(block) {
+        if (!block) return null;
+        var h = block.querySelector('.form-select-hour');
+        var m = block.querySelector('.form-select-min');
+        var ap = block.querySelector('.form-select-ampm');
+        if (!h || !h.value) return null;
+        return h.value + ':' + (m && m.value ? m.value : '00') + (ap ? ap.value.toLowerCase() : '');
+      }
+      var s = readTime(startBlock), e = readTime(endBlock);
+      var timeText = (s && e) ? (s + ' – ' + e) : (s || 'Select a time');
+      var locEl = document.getElementById('prefs-ctx-location');
+      var dateEl = document.getElementById('prefs-ctx-date');
+      var timeEl = document.getElementById('prefs-ctx-time');
+      if (locEl) locEl.textContent = locText;
+      if (dateEl) dateEl.textContent = dateText;
+      if (timeEl) timeEl.textContent = timeText;
+    }
+
+    function openPrefs() {
+      var ov = document.getElementById('prefs-overlay');
+      if (!ov) return;
+      // Clone committed -> draft so user can cancel without losing committed state
+      prefsState.draft = new Set(prefsState.committed);
+      prefsState.page = 0;
+      prefsState.query = '';
+      prefsState.onlySelected = false;
+      prefsState.filters = { favorites: false, approved: false };
+      var search = document.getElementById('prefs-search');
+      if (search) search.value = '';
+      ov.classList.add('visible');
+      ov.setAttribute('aria-hidden', 'false');
+      syncPrefsContext();
+      fetchPrefsRoster(function() { renderPrefs(); });
+    }
+
+    function closePrefs() {
+      var ov = document.getElementById('prefs-overlay');
+      if (!ov) return;
+      ov.classList.remove('visible');
+      ov.setAttribute('aria-hidden', 'true');
+    }
+
+    function savePrefs() {
+      prefsState.committed = new Set(prefsState.draft);
+      updateSelectReflexersBtn();
+      closePrefs();
+    }
+
+    function updateSelectReflexersBtn() {
+      var btn = document.getElementById('select-reflexers-btn');
+      var text = document.getElementById('srb-text');
+      var avs = document.getElementById('srb-avatars');
+      if (!btn) return;
+      var n = prefsState.committed.size;
+      if (n === 0) {
+        btn.classList.remove('has-selection');
+        if (text) text.textContent = 'Select preferences';
+        if (avs) { avs.hidden = true; avs.innerHTML = ''; }
+      } else {
+        btn.classList.add('has-selection');
+        if (text) text.textContent = n + ' selected';
+        if (avs) { avs.hidden = false; avs.innerHTML = prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)); }
+      }
+    }
+
+    function wirePrefs() {
+      // Triggers (delegated so it works after each loadVariant clone)
+      document.body.addEventListener('click', function(e) {
+        var trigger = e.target.closest('.js-open-prefs');
+        if (trigger) { e.preventDefault(); openPrefs(); return; }
+        // Row toggle (event delegation inside the modal)
+        var row = e.target.closest('.prefs-row');
+        if (row) {
+          var id = row.getAttribute('data-id');
+          if (prefsState.draft.has(id)) prefsState.draft.delete(id);
+          else prefsState.draft.add(id);
+          renderPrefs();
+        }
+      });
+
+      var closeBtn = document.getElementById('prefs-close');
+      var cancelBtn = document.getElementById('prefs-cancel');
+      var saveBtn = document.getElementById('prefs-save');
+      var overlay = document.getElementById('prefs-overlay');
+      var search = document.getElementById('prefs-search');
+      var prev = document.getElementById('prefs-prev');
+      var next = document.getElementById('prefs-next');
+      var viewSel = document.getElementById('prefs-view-selections');
+
+      if (closeBtn) closeBtn.addEventListener('click', closePrefs);
+      if (cancelBtn) cancelBtn.addEventListener('click', closePrefs);
+      if (saveBtn) saveBtn.addEventListener('click', savePrefs);
+      if (overlay) overlay.addEventListener('click', function(e) { if (e.target === overlay) closePrefs(); });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          var ov = document.getElementById('prefs-overlay');
+          if (ov && ov.classList.contains('visible')) closePrefs();
+        }
+      });
+      if (search) search.addEventListener('input', function() {
+        prefsState.query = this.value;
+        prefsState.page = 0;
+        renderPrefs();
+      });
+      if (prev) prev.addEventListener('click', function() {
+        if (prefsState.page > 0) { prefsState.page--; renderPrefs(); }
+      });
+      if (next) next.addEventListener('click', function() {
+        prefsState.page++; renderPrefs();
+      });
+      if (viewSel) viewSel.addEventListener('click', function() {
+        prefsState.onlySelected = !prefsState.onlySelected;
+        prefsState.page = 0;
+        this.textContent = prefsState.onlySelected ? 'View All' : 'View Selections';
+        renderPrefs();
+      });
+
+      var chips = document.getElementById('prefs-chips');
+      if (chips) chips.addEventListener('click', function(e) {
+        var chip = e.target.closest('.prefs-chip');
+        if (!chip) return;
+        var key = chip.getAttribute('data-filter');
+        if (!(key in prefsState.filters)) return;
+        prefsState.filters[key] = !prefsState.filters[key];
+        prefsState.page = 0;
+        renderPrefs();
+      });
     }
 
     /* ---- Variants (dev-menu) ---- */
@@ -1663,6 +2025,7 @@
       setupDevMenu();
       loadVariant(DEFAULT_VARIANT);  // calls init() internally
       wireRoster();
+      wirePrefs();
     }
 
     if (document.readyState === 'loading') {
@@ -2130,6 +2493,25 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <hr class="section-divider" />
+
+        <!-- Select Reflexers — opens prefs modal -->
+        <div class="form-question">
+          <label class="form-label">Select Reflexers
+            <span class="info-tooltip-wrap">
+              <i data-lucide="info" class="info-icon"></i>
+              <span class="info-tooltip">Pick specific reflexers you'd prefer for this shift, or leave open to all qualified.</span>
+            </span>
+          </label>
+          <button type="button" class="select-reflexers-btn js-open-prefs" id="select-reflexers-btn">
+            <span class="srb-content">
+              <span class="srb-avatars" id="srb-avatars" hidden></span>
+              <span class="srb-text" id="srb-text">Select preferences</span>
+            </span>
+            <i data-lucide="chevron-right" class="srb-chevron"></i>
+          </button>
         </div>
 
         <div class="form-divider">
@@ -2744,6 +3126,50 @@
       </div>
       <div class="roster-body">
         <div id="roster-content" class="roster-state">Loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Select Preferences modal (Opt 01) — pick reflexers for the shift -->
+  <div id="prefs-overlay" class="prefs-overlay" aria-hidden="true">
+    <div class="prefs-modal" role="dialog" aria-labelledby="prefs-title">
+      <div class="prefs-header">
+        <h2 id="prefs-title" class="prefs-title">Select Preferences</h2>
+        <button id="prefs-close" class="prefs-close" aria-label="Close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="prefs-context">
+        <div class="prefs-context-row"><i data-lucide="map-pin"></i><span id="prefs-ctx-location">Select a location</span></div>
+        <div class="prefs-context-row"><i data-lucide="calendar"></i><span id="prefs-ctx-date">Select a date</span></div>
+        <div class="prefs-context-row"><i data-lucide="clock"></i><span id="prefs-ctx-time">Select a time</span></div>
+      </div>
+      <div class="prefs-summary">
+        <div class="prefs-summary-left">
+          <span class="srb-avatars" id="prefs-summary-avatars"></span>
+          <span class="prefs-summary-count" id="prefs-summary-count">0 Selected</span>
+        </div>
+        <button type="button" class="prefs-summary-link" id="prefs-view-selections">View Selections</button>
+      </div>
+      <div class="prefs-search-wrap">
+        <i data-lucide="search" class="search-icon"></i>
+        <input type="text" id="prefs-search" class="prefs-search" placeholder="Search" />
+      </div>
+      <div class="prefs-chips" id="prefs-chips">
+        <button type="button" class="prefs-chip" data-filter="favorites"><i data-lucide="plus"></i><span>Favorites</span></button>
+        <button type="button" class="prefs-chip" data-filter="approved"><i data-lucide="plus"></i><span>Approved</span></button>
+      </div>
+      <div id="prefs-list" class="prefs-list">
+        <div class="prefs-state">Loading…</div>
+      </div>
+      <div class="prefs-pagination">
+        <span id="prefs-pagination-info">Showing 0 of 0</span>
+        <div class="prefs-page-btns">
+          <button type="button" class="prefs-page-btn" id="prefs-prev" aria-label="Previous page"><i data-lucide="chevron-left"></i></button>
+          <button type="button" class="prefs-page-btn" id="prefs-next" aria-label="Next page"><i data-lucide="chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="prefs-footer">
+        <button type="button" class="prefs-cancel-btn" id="prefs-cancel">Cancel</button>
+        <button type="button" class="prefs-save-btn" id="prefs-save">Save</button>
       </div>
     </div>
   </div>
