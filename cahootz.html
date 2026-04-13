@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Reflex | Request Reflexer - InSequence</title>
+  <title>Request Reflexer - Cahootz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
@@ -99,8 +99,16 @@
       --text-primary: #0D0D0D;
       --text-hint: #919191;
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --radius-md: 8px;
       --radius-lg: 0.5rem;
       --radius-xl: 0.75rem;
+      /* Matchpoint nav tokens (from x.reference/web/src/styles/variables.css) */
+      --gray-200: #E4E4E7;
+      --gray-400: #A1A1AA;
+      --gray-700: #3F3F46;
+      --quaternary: #E4E4E7;
+      --primary: #3F3F46;
+      --pink-400: #FFB8B8;
     }
 
     * { box-sizing: border-box; }
@@ -121,117 +129,227 @@
       background: var(--background-sky);
     }
 
-    /* AppLayout - full width; nav fills left, main fixed, spacer fills right; horizontal scroll on narrow viewports */
+    /* AppLayout — port of x.reference/web/src/components/Layout/AppLayout.css
+       (uses flex:1 inside the existing column body instead of explicit 100vh) */
     .app-layout {
       display: flex;
       flex: 1;
-      min-width: min-content;
       min-height: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      align-items: stretch;
+      overflow: hidden;
     }
 
-    /* Left nav area - fills available left side, stretches/shrinks; background scales with it */
     .nav-area {
-      flex: 1 1 auto;
-      min-width: 280px;
-      min-height: 100vh;
-      height: 100%;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+      min-width: 0;
+      min-height: 0;
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      overflow: hidden;
       background-color: var(--navy-50);
       background-image: url("images/brand/nav-background.svg");
       background-size: auto 100%;
       background-position: right center;
       background-repeat: no-repeat;
-      border-right: 1px solid var(--black-alpha-100);
       position: relative;
+      z-index: 10;
+      box-shadow: 0 0 20px rgba(38, 38, 38, 0.1);
     }
 
-    /* Right spacer - balances nav to keep main centered */
-    .main-spacer {
-      flex: 1 1 auto;
-      min-width: 0;
+    @media (max-width: 1024px) {
+      .nav-area:not(.collapsed) { flex: 0 0 auto; }
     }
 
-    /* DesktopSideNavigation - white card floating on right edge */
+    .nav-area.collapsed {
+      flex: 0 0 88px;
+      width: 88px;
+      min-width: 88px;
+      max-width: 88px;
+      align-items: center;
+    }
+
+    /* SideNav — direct port from x.reference/web/src/components/Layout/SideNav.css */
     .side-nav {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 240px;
-      height: 100%;
-      padding: 8px 0 32px;
+      position: relative;
+      box-sizing: border-box;
+      width: fit-content;
+      max-width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 24px 24px 32px;
       display: flex;
       flex-direction: column;
+      gap: 8px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
       background: transparent;
     }
 
+    .side-nav > .logo {
+      display: block;
+      margin: 0 0 8px 0;
+      padding: 0;
+      color: var(--pink-400);
+    }
+
+    .side-nav > .logo .logo-img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
     .side-nav-card {
-      margin-top: 32px;
-      margin-right: 24px;
-      padding: 8px 12px 0;
-      background: var(--main-white);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--black-alpha-100);
+      width: 192px;
+      max-width: 100%;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
-      border-radius: var(--radius-xl);
-      margin-bottom: 8px;
-      padding: 8px 12px;
-      margin-left: -4px;
+      gap: 8px;
+      width: 100%;
+      height: 40px;
+      border-radius: 6px;
+      padding: 8px;
       text-decoration: none;
-      color: var(--app-secondary);
+      color: var(--app-primary);
       font-weight: 500;
+      font-size: 16px;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
+      box-sizing: border-box;
     }
+    .nav-item:hover { background: var(--quaternary); color: var(--app-primary); }
+    .nav-item.active { background: var(--navy-100); color: var(--app-primary); }
+    .nav-item.active:hover { color: var(--app-primary); }
+    .nav-item svg { flex-shrink: 0; width: 20px; height: 20px; margin-right: 0; }
+    .nav-item .nav-label { white-space: nowrap; overflow: hidden; }
 
-    .nav-item:hover { background: var(--black-alpha-100); color: var(--app-primary); }
-    .nav-item.active { background: var(--app-background-navy); color: var(--app-primary-light); }
-    .nav-item.active:hover { color: var(--app-primary-light); }
-    .nav-item .icon, .nav-item .lucide, .nav-item svg { margin-right: 8px; flex-shrink: 0; width: 20px; height: 20px; }
-
-    /* UrgentRetailerNavAlert - matches x_reference UrgentRetailerNavAlert.tsx */
+    /* UrgentRetailerNavAlert — direct port */
     .reviews-alert {
-      border: 1px solid var(--pink-200);
-      background: var(--pink-50);
-      border-radius: 8px;
-      margin: 20px 24px 0 0;
+      align-self: flex-start;
+      flex-shrink: 0;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      box-shadow: 0 3px 10px rgba(38, 38, 38, 0.2);
+      border: 1px solid var(--quaternary);
+      width: 192px;
+      min-width: 192px;
+      max-width: 192px;
+      margin: 4px 0 0 0;
       padding: 16px;
+      overflow: hidden;
+      box-sizing: border-box;
     }
-    .reviews-alert-header { display: flex; align-items: center; gap: 6px; color: var(--pink-600); font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-    .reviews-alert-header .lucide, .reviews-alert-header svg { width: 20px; height: 20px; flex-shrink: 0; }
-    .reviews-alert-sub { font-size: 14px; font-weight: 500; color: var(--app-primary); margin-bottom: 12px; padding-left: 28px; line-height: 1; }
-    .reviews-alert-avatars { display: flex; align-items: center; margin-bottom: 16px; }
-    .avatar-pill { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--pink-100); background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--app-secondary); flex-shrink: 0; margin-right: -12px; box-sizing: border-box; }
-    .avatar-pill:last-of-type { margin-right: 0; }
-    .reviews-alert-more { font-size: 12px; color: var(--text-hint); margin-left: 16px; min-width: 45px; }
-    .reviews-alert-btn { padding: 8px 16px; background: var(--pink-200); color: var(--app-primary); border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 4px; transition: background 0.15s; }
-    .reviews-alert-btn:hover { background: var(--pink-300); }
+    .reviews-alert-header { font-weight: 700; font-size: 18px; color: var(--app-primary); margin-bottom: 0; }
+    .reviews-alert-sub { font-size: 16px; font-weight: 400; color: var(--primary); margin-bottom: 8px; }
+    .reviews-alert-avatars { display: flex; align-items: center; justify-content: flex-start; width: 100%; margin-bottom: 12px; }
+    .avatar-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffffff; object-fit: cover; flex-shrink: 0; margin-right: -20px; box-sizing: border-box; background: var(--gray-200); }
+    .avatar-img:last-of-type { margin-right: 0; }
+    .reviews-alert-more { font-size: 13px; color: var(--text-hint); margin-left: 8px; }
+    .reviews-alert-btn { padding: 10px 20px; background: var(--app-primary); color: #ffffff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.15s; font-family: inherit; }
+    .reviews-alert-btn:hover { background: var(--app-secondary); }
 
-    /* Logo + user footer - pinned to bottom of nav container; left-aligned with side-nav (240px from right) */
-    .side-nav-spacer { flex: 1; min-height: 0; }
-    .nav-footer { position: absolute; bottom: 32px; left: calc(100% - 240px); width: 240px; z-index: 2; }
-    .logo { display: block; margin: 0 0 8px 12px; padding: 0; color: var(--app-secondary); }
-    .logo-img { height: 30px; width: 88.82px; display: block; }
-    .user-section { padding-left: 12px; }
-    .user-row { display: flex; align-items: center; gap: 8px; margin-bottom: 0; }
-    .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--black-alpha-200); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--app-secondary); flex-shrink: 0; }
-    .user-name { font-weight: 500; font-size: 14px; color: var(--app-secondary); margin-left: 8px; }
-    .logout-btn { background: none; border: none; padding: 8px 4px 0; font-size: 14px; color: var(--text-hint); cursor: pointer; }
+    /* User footer — inside .side-nav, pinned to bottom */
+    .nav-footer { margin-top: auto; align-self: flex-start; flex-shrink: 0; width: 192px; min-width: 192px; max-width: 192px; box-sizing: border-box; }
+    .user-section { padding-left: 0; padding-right: 0; width: 100%; box-sizing: border-box; }
+    .user-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; width: 100%; }
+    .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--app-primary); border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: #ffffff; flex-shrink: 0; }
+    .user-name { font-weight: 500; font-size: 18px; color: var(--app-primary); }
+    .logout-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logout-btn { background: none; border: none; padding: 0; font-size: 16px; color: var(--app-primary); cursor: pointer; font-family: inherit; font-weight: 500; }
+    .logout-btn:hover { text-decoration: underline; color: var(--app-primary); }
+
+    .collapse-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      color: var(--gray-900);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .collapse-toggle:hover { background: var(--gray-100); }
+    .collapse-toggle:focus-visible { outline: 2px solid var(--app-primary); outline-offset: 2px; }
+    .collapse-toggle svg { flex-shrink: 0; }
+    .expand-row { display: flex; justify-content: center; }
+
+    /* Logo wordmark/logomark swap (replaces matchpoint's React conditional render) */
+    .side-nav > .logo .logo-img.logo-logomark { display: none; }
+    .side-nav.collapsed > .logo .logo-img.logo-wordmark { display: none; }
+    .side-nav.collapsed > .logo .logo-img.logo-logomark { display: block; }
+
+    /* Footer view swap (replaces matchpoint's React conditional render) */
+    .user-avatar-collapsed { display: none; }
+    .expand-row { display: none; }
+    .side-nav.collapsed .user-row { display: none; }
+    .side-nav.collapsed .logout-row { display: none; }
+    .side-nav.collapsed .reviews-alert { display: none; }
+    .side-nav.collapsed .user-avatar-collapsed { display: flex; }
+    .side-nav.collapsed .expand-row { display: flex; justify-content: center; }
+
+    /* Collapsed state — direct port */
+    .side-nav.collapsed { width: 100%; max-width: none; flex: 1 1 auto; align-items: center; padding: 24px 16px 32px; }
+    .side-nav.collapsed > .logo { margin: 0 0 16px 0; }
+    .side-nav.collapsed > .logo .logo-img { height: 22px; }
+    .side-nav.collapsed .side-nav-card { width: 56px; min-width: 56px; max-width: 56px; padding: 8px; box-sizing: border-box; flex-shrink: 0; }
+    .side-nav.collapsed .nav-item { width: auto; justify-content: center; }
+    .side-nav.collapsed .nav-item .nav-label { display: none; }
+    .side-nav.collapsed .nav-footer { width: auto; min-width: 0; max-width: none; align-self: center; }
+    .side-nav.collapsed .user-section { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+    /* Mobile bottom nav — direct port */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 72px;
+      background: #ffffff;
+      border-top: 1px solid var(--quaternary);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      padding: 8px 0;
+      padding-bottom: max(8px, env(safe-area-inset-bottom));
+    }
+    .mobile-nav-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 4px;
+      flex: 1;
+      text-decoration: none;
+      color: var(--text-hint);
+      font-size: 11px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .mobile-nav-item svg { width: 24px; height: 24px; }
+    .mobile-nav-item:hover { color: var(--app-secondary); }
+    .mobile-nav-item.active { color: var(--app-primary); }
+    .mobile-nav-item.active svg { stroke-width: 2; }
 
     /* Main content area */
     .main-content {
       flex: 1 1 auto;
+      min-width: 0;
       min-height: 0;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
-      overflow-x: hidden;
+      overflow: auto;
       padding: 24px;
     }
 
@@ -361,13 +479,14 @@
     .submit-summary { text-align: center; font-size: 16px; color: var(--text-hint); margin-top: 8px; margin-bottom: 0; }
 
     /* QuestionRoles - role checkboxes */
-    .roles-section { margin-top: 8px; display: flex; flex-direction: column; gap: 0; }
-    .role-category { display: flex; align-items: flex-start; gap: 10px; padding: 16px 0; border-bottom: 1px solid var(--black-alpha-100); }
-    .role-category:last-child { border-bottom: none; padding-bottom: 0; }
-    .role-category-label { font-size: 14px; font-weight: 400; color: var(--app-secondary); width: 96px; flex-shrink: 0; padding-top: 10px; margin-bottom: 0; }
-    .role-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex: 1; }
+    .roles-section { margin-top: 8px; display: flex; flex-direction: column; gap: 16px; }
+    .role-category { display: flex; flex-direction: column; gap: 8px; padding: 0; border: 0; }
+    .role-category-label { font-size: 14px; font-weight: 400; color: var(--app-secondary); margin-bottom: 0; }
+    /* font-size:0 avoids whitespace text nodes becoming anonymous grid items (thin stray lines) */
+    .role-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex: 1; font-size: 0; line-height: 0; }
     .role-chip {
       display: flex; align-items: center; gap: 8px;
+      font-size: 16px; line-height: 1.25;
       padding: 6px 8px; border-radius: 8px; border: 1px solid var(--black-alpha-200);
       background: var(--main-white);
       font-size: 16px; font-weight: 400; color: var(--app-primary);
@@ -375,10 +494,10 @@
     }
     .role-chip:hover { background: #FAFAFA; }
     .role-chip:hover::after { border-color: var(--green-400); }
-    .role-chip.checked { background: var(--green-100); color: var(--green-600); }
-    .role-chip.checked::after { background: var(--green-600); border-color: var(--green-600); box-shadow: inset 0 0 0 3px var(--green-100), inset 0 0 0 5px var(--green-600); }
+    .role-chip.checked { background: var(--app-primary); color: var(--main-white); border-color: var(--app-primary); }
+    .role-chip.checked::after { background: var(--app-primary); border-color: var(--main-white); box-shadow: inset 0 0 0 3px var(--app-primary), inset 0 0 0 5px var(--main-white); }
     .role-chip .chip-icon, .role-chip .lucide, .role-chip svg { width: 18px; height: 18px; flex-shrink: 0; stroke: currentColor; color: var(--app-primary); }
-    .role-chip.checked .chip-icon, .role-chip.checked .lucide, .role-chip.checked svg { color: var(--green-600); stroke: var(--green-600); }
+    .role-chip.checked .chip-icon, .role-chip.checked .lucide, .role-chip.checked svg { color: var(--main-white); stroke: var(--main-white); }
 
     /* Right column - RequestSummary + RequestWorkerCalendar; fixed width, clipped when narrow */
     .right-column {
@@ -616,11 +735,11 @@
     }
     .shifts-label { font-size: 16px; color: var(--app-primary); flex-shrink: 0; }
 
-    @media (max-width: 1024px) {
-      .nav-area { min-width: 260px; }
-    }
-    @media (max-width: 768px) {
+    /* Show mobile nav below 768px (matchpoint uses 767px) */
+    @media (max-width: 767px) {
       .nav-area { display: none; }
+      .mobile-bottom-nav { display: flex; }
+      .main-content { padding-bottom: 88px; }
     }
   </style>
 </head>
@@ -629,40 +748,52 @@
     <!-- Left nav area (AppLayout nav column) -->
     <aside class="nav-area">
       <nav class="side-nav">
+        <a href="#" class="logo" aria-label="Reflex">
+          <img src="assets/r-wordmark.svg" alt="Reflex" class="logo-img logo-wordmark" />
+          <img src="assets/r-logomark.svg" alt="Reflex" class="logo-img logo-logomark" />
+        </a>
         <div class="side-nav-card">
-          <a class="nav-item" href="#"><i data-lucide="home"></i> Home</a>
-          <a class="nav-item active" href="#"><i data-lucide="user-plus"></i> Request Flex</a>
-          <a class="nav-item" href="#"><i data-lucide="calendar"></i> Calendar</a>
-          <a class="nav-item" href="#"><i data-lucide="users"></i> Reflexers</a>
-          <a class="nav-item" href="#"><i data-lucide="line-chart"></i> Reports</a>
-          <a class="nav-item" href="#"><i data-lucide="store"></i> Locations</a>
-          <a class="nav-item" href="#"><i data-lucide="calendar-clock"></i> Budgets</a>
-          <a class="nav-item" href="#"><i data-lucide="settings"></i> Settings</a>
-          <a class="nav-item" href="#"><i data-lucide="target"></i> Support</a>
+          <a class="nav-item" href="#" title="Home"><i data-lucide="home"></i><span class="nav-label">Home</span></a>
+          <a class="nav-item active" href="#" title="Request Flex"><i data-lucide="user-plus"></i><span class="nav-label">Request Flex</span></a>
+          <a class="nav-item" href="#" title="Calendar"><i data-lucide="calendar"></i><span class="nav-label">Calendar</span></a>
+          <a class="nav-item" href="#" title="Reflexers"><i data-lucide="users"></i><span class="nav-label">Reflexers</span></a>
+          <a class="nav-item" href="#" title="Reports"><i data-lucide="chart-spline"></i><span class="nav-label">Reports</span></a>
+          <a class="nav-item" href="#" title="Locations"><i data-lucide="store"></i><span class="nav-label">Locations</span></a>
+          <a class="nav-item" href="#" title="Budgets"><i data-lucide="calendar-clock"></i><span class="nav-label">Budgets</span></a>
+          <a class="nav-item" href="#" title="Settings"><i data-lucide="settings"></i><span class="nav-label">Settings</span></a>
+          <a class="nav-item" href="#" title="Support"><i data-lucide="life-buoy"></i><span class="nav-label">Support</span></a>
         </div>
         <div class="reviews-alert">
-          <div class="reviews-alert-header"><i data-lucide="circle-alert"></i>Reviews Needed!</div>
+          <div class="reviews-alert-header">Reviews Needed</div>
           <div class="reviews-alert-sub">12 Outstanding</div>
           <div class="reviews-alert-avatars">
-            <div class="avatar-pill">M</div>
-            <div class="avatar-pill">A</div>
-            <div class="avatar-pill">J</div>
-            <span class="reviews-alert-more">+9</span>
+            <img class="avatar-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="" />
+            <img class="avatar-img" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="" />
+            <img class="avatar-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="" />
+            <img class="avatar-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=80&h=80&fit=crop&crop=face" alt="" />
+            <span class="reviews-alert-more">+more</span>
           </div>
           <button class="reviews-alert-btn">Leave Reviews</button>
         </div>
-        <div class="side-nav-spacer"></div>
-      </nav>
-      <div class="nav-footer">
-        <a href="#" class="logo" aria-label="Reflex"><svg class="logo-img" viewBox="0 0 450 152" fill="currentColor"><path d="M.5 117.031h46.332l.686-5.491c-8.923-1.03-12.526-3.775-11.668-10.468l2.574-21.278c.686-6.52 3.432-9.438 10.81-9.438 9.782 0 13.9 4.462 16.989 17.503 4.976 20.249 9.095 29.172 27.627 29.172h8.752l.858-5.663c-7.722 0-9.438-10.296-12.012-21.621-2.917-13.213-7.379-18.705-16.817-21.793-1.03-.344-.858-1.888.343-2.06 17.16-2.402 28.314-14.07 28.314-30.373 0-16.13-14.07-25.053-36.55-25.053H13.542l-.687 5.49c7.207 1.03 10.811 3.776 9.953 10.468l-9.095 74.646c-.858 6.693-5.148 9.438-12.527 10.468L.5 117.031zm49.078-54.397c-6.693 0-8.752-2.917-7.894-9.61l3.26-25.911c.858-6.178 3.26-9.61 11.498-9.61h7.55c12.355 0 16.474 8.409 16.474 18.361 0 15.273-8.58 26.77-23.681 26.77h-7.207zm97.113 55.427c15.101 0 25.397-8.409 30.03-14.071l-3.26-4.29c-4.977 5.148-11.669 7.207-17.847 7.207-9.609 0-15.958-4.977-19.39-12.184-2.574-5.32-1.202-9.266 3.603-10.124l7.722-1.373c23.338-4.118 33.805-11.497 33.805-24.196 0-11.668-8.751-21.278-25.911-21.278-27.799 0-42.9 25.397-42.9 46.332 0 21.107 15.444 33.977 34.148 33.977zm-7.207-38.61c-4.805.686-7.379-1.373-7.379-6.006 0-15.787 7.207-29.515 20.249-29.515 7.036 0 11.497 3.775 11.497 14.414 0 6.52-1.544 17.675-20.935 20.592l-3.432.515z"/><path d="M182.669 151.351c18.19 0 32.776-10.811 35.35-32.089l8.065-65.208c.687-5.32 2.574-6.52 10.125-6.35l10.982.344.858-7.55h-10.982c-7.722 0-9.267-1.03-8.752-5.492l1.201-11.325c1.373-12.184 2.231-17.847 12.87-17.847 15.273 0 25.054 10.983 21.107 41.528l-7.035 54.568c-1.373 10.64 3.775 16.131 12.355 16.131 3.946 0 10.81-1.201 15.958-6.006l.858-5.148c-5.662 2.917-10.639-.172-9.781-7.207l7.207-57.658C286.831 11.154 267.611 0 247.191 0c-21.622 0-35.178 12.012-37.924 34.492-.686 5.662-5.319 7.035-13.556 8.408l-.686 4.805h8.408c3.089 0 4.29 1.03 3.604 6.006l-8.237 65.894c-1.716 13.213-3.432 25.912-11.669 25.912-9.438 0-1.544-16.131-14.586-16.131-6.521 0-9.266 4.119-9.266 9.095 0 8.58 8.065 12.87 19.39 12.87zm147.855-33.29c15.101 0 25.397-8.409 30.03-14.071l-3.26-4.29c-4.976 5.148-11.669 7.207-17.846 7.207-9.61 0-15.959-4.977-19.391-12.184-2.574-5.32-1.201-9.266 3.603-10.124l7.722-1.373c23.338-4.118 33.806-11.497 33.806-24.196 0-11.668-8.752-21.278-25.912-21.278-27.799 0-42.9 25.397-42.9 46.332 0 21.107 15.444 33.977 34.148 33.977zm-7.207-38.61c-4.805.686-7.379-1.373-7.379-6.006 0-15.787 7.208-29.515 20.249-29.515 7.036 0 11.497 3.775 11.497 14.414 0 6.52-1.544 17.675-20.935 20.592l-3.432.515zm54.128 38.267c8.58 0 13.728-5.663 20.935-18.018l5.32-8.924 4.633 10.468c4.29 9.781 6.692 16.474 15.787 16.474 3.947 0 9.781-1.202 15.616-6.006l.686-5.148c-6.521 3.26-10.467 0-13.728-7.38L414.682 71.9l3.775-6.349c8.924-15.272 12.527-18.533 15.273-18.533 3.603 0 3.775 6.521 8.923 6.521 4.118 0 6.521-3.26 6.521-6.52 0-4.29-3.261-8.58-10.639-8.58-8.58 0-13.729 5.662-20.936 18.017l-5.662 9.438-4.805-10.982c-4.29-9.781-6.693-16.474-15.787-16.474-3.947 0-9.782 1.202-15.616 6.006l-.686 5.148c6.52-3.26 10.467 0 13.727 7.38l12.184 27.627-3.432 6.006c-8.923 15.272-12.527 18.533-15.272 18.533-3.604 0-3.776-5.835-8.924-5.835-4.118 0-6.52 3.261-6.52 6.521 0 4.29 3.26 7.894 10.639 7.894z"/></svg></a>
-        <div class="user-section">
-          <div class="user-row">
-            <div class="user-avatar">A</div>
-            <span class="user-name">Ashlee</span>
+        <div class="nav-footer">
+          <div class="user-section">
+            <!-- Expanded view -->
+            <div class="user-row">
+              <div class="user-avatar">A</div>
+              <span class="user-name">Ashlee</span>
+            </div>
+            <div class="logout-row">
+              <button class="logout-btn">Log Out</button>
+              <button type="button" class="collapse-toggle" aria-label="Collapse navigation"><i data-lucide="chevron-left"></i></button>
+            </div>
+            <!-- Collapsed view -->
+            <div class="user-avatar user-avatar-collapsed">A</div>
+            <div class="expand-row">
+              <button type="button" class="collapse-toggle" aria-label="Expand navigation"><i data-lucide="chevron-right"></i></button>
+            </div>
           </div>
-          <button class="logout-btn">Log Out</button>
         </div>
-      </div>
+      </nav>
     </aside>
 
     <!-- Main content (AppLayout container) -->
@@ -851,15 +982,14 @@
               <div class="role-category">
                 <div class="role-category-label">Back of House</div>
                 <div class="role-chips">
-                  <button type="button" class="role-chip" data-role="Inventory"><i data-lucide="clipboard-check" class="chip-icon"></i>Inventory</button>
+                  <button type="button" class="role-chip" data-role="Inventory Management"><i data-lucide="clipboard-check" class="chip-icon"></i>Inventory Management</button>
                   <button type="button" class="role-chip" data-role="Shipments"><i data-lucide="truck" class="chip-icon"></i>Shipments</button>
-                  <button type="button" class="role-chip" data-role="Omni"><i data-lucide="expand" class="chip-icon"></i>Omni</button>
+                  <button type="button" class="role-chip" data-role="Omni Help"><i data-lucide="expand" class="chip-icon"></i>Omni Help</button>
                 </div>
               </div>
               <div class="role-category" style="margin-bottom:0;">
                 <div class="role-category-label">Special Event</div>
                 <div class="role-chips">
-                  <button type="button" class="role-chip" data-role="Warehouse Sale"><i data-lucide="package" class="chip-icon"></i>Warehouse Sale</button>
                   <button type="button" class="role-chip" data-role="NSO Support"><i data-lucide="map-pin-plus" class="chip-icon"></i>NSO Support</button>
                   <button type="button" class="role-chip" data-role="Event Help"><i data-lucide="calendars" class="chip-icon"></i>Event Help</button>
                 </div>
@@ -934,9 +1064,39 @@
       </div>
     </main>
   </div>
+
+  <!-- MobileBottomNavigation - shown on viewports <= 768px -->
+  <nav class="mobile-bottom-nav">
+    <a href="#" class="mobile-nav-item"><i data-lucide="home"></i><span>Home</span></a>
+    <a href="#" class="mobile-nav-item active"><i data-lucide="user-plus"></i><span>Request</span></a>
+    <a href="#" class="mobile-nav-item"><i data-lucide="calendar"></i><span>Calendar</span></a>
+    <a href="#" class="mobile-nav-item"><i data-lucide="users"></i><span>Reflexers</span></a>
+    <a href="#" class="mobile-nav-item"><i data-lucide="menu"></i><span>More</span></a>
+  </nav>
+
   <script>
     function init() {
       if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+
+      // Sidebar collapse toggle — matches AppLayout.tsx (toggles both .nav-area and .side-nav)
+      var navArea = document.querySelector('.nav-area');
+      var sideNav = document.querySelector('.side-nav');
+      document.querySelectorAll('.collapse-toggle').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (!navArea || !sideNav) return;
+          var isCollapsed = navArea.classList.toggle('collapsed');
+          sideNav.classList.toggle('collapsed', isCollapsed);
+          if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+        });
+      });
+
+      // Mobile bottom nav — set active on tap
+      document.querySelectorAll('.mobile-nav-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+          document.querySelectorAll('.mobile-nav-item').forEach(function(i) { i.classList.remove('active'); });
+          this.classList.add('active');
+        });
+      });
 
       // Handle select placeholder styling
       function updateSelectPlaceholder(select) {

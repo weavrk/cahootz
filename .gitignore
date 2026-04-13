@@ -1,5 +1,6 @@
 # Reference code - not part of this project
 x_reference/
+x.reference/
 
 # Dependencies
 node_modules/
