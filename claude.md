@@ -6,23 +6,27 @@ Frontend-only prototype for Reflex (retail labor marketplace). Single HTML file,
 
 | File | Purpose |
 |------|---------|
-| `cahootz.html` | The entire prototype (~1474 lines) |
+| `index.html` | The entire prototype |
 
-Within the HTML:
-- **Lines 10–625** — `<style>` block (design tokens, all CSS)
-- **Lines 628–936** — `<body>` markup (nav, form, success screen, sidebar)
-- **Lines 937–1472** — `<script>` block (single `init()` function, all JS)
-
-## Assets
-
-- `fonts/CircularSTD/*.ttf` — Circular STD font (8 weights)
-- `images/brand/nav-background.*` — Nav background pattern
-- `assets/r-logo.svg` — Reflex logo
+Inside the file: `<style>` block, then `<body>` markup, then `<script>` with a single `init()` function plus the roster modal logic appended after `init`.
 
 ## Dev Server
 
 ```bash
-npm run dev    # live-server on port 4173
+npm run dev    # live-server on port 4173, entry index.html
 ```
 
-Entry file is `cahootz.html`.
+## Deploy
+
+- Hosted on Vercel (project name: `cahootz`) at `flex-request.weavrk.com`
+- DNS: GoDaddy CNAME `flex-request` → `cname.vercel-dns.com` (matches the matchpoint setup)
+- Auto-deploys from git on push
+- Static — no build command. Vercel serves `index.html` at `/` directly.
+
+## Supabase (read-only)
+
+- Project: `kxfbismfpmjwvemfznvm` (shared with matchpoint)
+- Client: `@supabase/supabase-js@2` via CDN, initialized with the **publishable** key (legacy term: anon). Key is hard-coded in the HTML — safe because RLS is enabled with a SELECT-only `anon` policy.
+- Table: **`cahootz_workers`** (NOT the original `workers` table — that one is in use by another app, do not touch)
+- Roster modal opens from any `.js-open-roster` element (left nav "Reflexers" + mobile bottom nav). Cached after first fetch.
+- `cahootz_workers.photo` column drives avatars; falls back to initials if missing/broken.

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "live-server --port=4173 --entry-file=cahootz.html",
+    "dev": "live-server --port=4173 --entry-file=index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
