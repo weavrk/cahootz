@@ -430,12 +430,22 @@
     .switch-knob { width: 16px; height: 16px; border-radius: 50%; background: #fff; position: absolute; top: 2px; left: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: left 0.2s; }
     .switch.on .switch-knob { left: 18px; }
     .switch-info { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-hint); }
+    .custom-check { display: none; }
+    .custom-check-box {
+      width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0;
+      border: 1.5px solid var(--app-tertiary); background: var(--main-white);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.15s, border-color 0.15s;
+    }
+    .custom-check-box svg { width: 14px; height: 14px; color: #fff; opacity: 0; }
+    .custom-check:checked + .custom-check-box { background: var(--app-primary); border-color: var(--app-primary); }
+    .custom-check:checked + .custom-check-box svg { opacity: 1; }
     .form-divider { box-sizing: content-box; border-top: none; padding-top: 24px; margin-top: 24px; }
     .add-additional-row { display: flex; align-items: center; gap: 4px; width: 100%; margin-bottom: 32px; min-height: 40px; }
     .add-additional-divider { flex: 1; height: 1px; background: var(--black-alpha-200); }
     .add-shift-btn { display: inline-flex; align-items: center; justify-content: center; padding: 6px 16px; height: 40px; background: var(--main-white); border: 1px solid var(--black-alpha-200); border-radius: var(--radius-lg); font-size: 16px; font-weight: 500; color: var(--app-primary); cursor: pointer; flex-shrink: 0; }
     .add-shift-btn:hover { background: var(--gray-50); }
-    .submit-btn { padding: 12px 24px; background: var(--stone-700); color: var(--main-white); border: none; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer; display: block; margin: 0 auto; }
+    .submit-btn { padding: 12px 24px; background: var(--app-primary); color: var(--main-white); border: none; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; display: block; margin: 0 auto; }
     .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* Success screen */
@@ -493,12 +503,13 @@
       font-size: 16px; font-weight: 400; color: var(--app-primary);
       cursor: pointer; transition: all 0.15s; text-align: left; width: 100%; box-sizing: border-box;
     }
-    .role-chip:hover { background: #FAFAFA; }
+    .role-chip:hover { background: var(--green-100); color: var(--green-600); border-color: var(--green-200); }
     .role-chip:hover::after { border-color: var(--green-400); }
-    .role-chip.checked { background: var(--app-primary); color: var(--main-white); border-color: var(--app-primary); }
-    .role-chip.checked::after { background: var(--app-primary); border-color: var(--main-white); box-shadow: inset 0 0 0 3px var(--app-primary), inset 0 0 0 5px var(--main-white); }
+    .role-chip:hover .chip-icon, .role-chip:hover .lucide, .role-chip:hover svg { color: var(--green-600); stroke: var(--green-600); }
+    .role-chip.checked { background: var(--green-100); color: var(--green-600); border-color: var(--green-200); }
+    .role-chip.checked::after { background: var(--green-600); border-color: var(--green-600); box-shadow: inset 0 0 0 3px var(--green-100), inset 0 0 0 5px var(--green-600); }
     .role-chip .chip-icon, .role-chip .lucide, .role-chip svg { width: 18px; height: 18px; flex-shrink: 0; stroke: currentColor; color: var(--app-primary); }
-    .role-chip.checked .chip-icon, .role-chip.checked .lucide, .role-chip.checked svg { color: var(--main-white); stroke: var(--main-white); }
+    .role-chip.checked .chip-icon, .role-chip.checked .lucide, .role-chip.checked svg { color: var(--green-600); stroke: var(--green-600); }
 
     /* Right column - RequestSummary + RequestWorkerCalendar; fixed width, clipped when narrow */
     .right-column {
@@ -544,7 +555,8 @@
     .calendar-month { font-size: 20px; color: var(--app-primary); display: flex; align-items: center; gap: 4px; }
     .calendar-month .cal-month-name { font-weight: 600; }
     .calendar-month .cal-month-year { font-weight: 400; }
-    .calendar-nav-btn { width: 28px; height: 28px; border: 1px solid var(--black-alpha-200); border-radius: 50%; background: var(--main-white); cursor: pointer; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+    .calendar-nav-btn { width: 28px; height: 28px; border: 1px solid var(--black-alpha-200); border-radius: 50%; background: var(--main-white); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+    .calendar-nav-btn svg { width: 16px; height: 16px; }
     .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-size: 14px; }
     .calendar-dow { text-align: center; color: var(--text-hint); padding: 4px 0; font-size: 14px; }
     .calendar-day { text-align: center; padding: 4px 6px; border-radius: 6px; cursor: pointer; color: var(--app-primary); font-weight: 500; display: flex; flex-direction: column; align-items: center; gap: 2px; }
@@ -682,7 +694,7 @@
     .repeat-item .info-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-hint); }
     .repeat-item .form-label { display: flex; align-items: center; gap: 6px; }
     .info-tooltip-wrap { position: relative; display: inline-flex; align-items: center; }
-    .info-tooltip-wrap .info-icon { cursor: default; }
+    .info-tooltip-wrap .info-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-hint); cursor: default; }
     .info-tooltip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); width: 220px; background: #18181B; color: #fff; font-size: 13px; font-weight: 400; line-height: 1.45; padding: 8px 10px; border-radius: 8px; pointer-events: none; opacity: 0; transition: opacity 0.15s; white-space: normal; z-index: 100; }
     .info-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #18181B; }
     .info-tooltip-wrap:hover .info-tooltip { opacity: 1; }
@@ -804,7 +816,56 @@
     .roster-stat strong { color: var(--app-primary); font-weight: 600; }
     .roster-summary { font-size: 12px; color: var(--app-secondary); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-    /* Select Reflexers — form field that opens the prefs modal (Opt 01) */
+    /* Select Reflexers — radio toggle (Opt 01) */
+    .reflexer-radios { display: flex; flex-direction: column; gap: 4px; }
+    .reflexer-radio {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 8px; height: 42px; cursor: pointer;
+      border: 1px solid transparent; border-radius: 6px;
+      background: var(--main-white);
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .reflexer-radio:hover { border-color: var(--black-alpha-200); background: var(--gray-50); }
+    .reflexer-radio.selected {
+      border-color: var(--black-alpha-200); background: var(--main-white);
+    }
+    .reflexer-radio input[type="radio"] { display: none; }
+    .reflexer-radio-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--app-tertiary); background: var(--main-white);
+      flex-shrink: 0; position: relative;
+      transition: border-color 0.15s;
+    }
+    .reflexer-radio.selected .reflexer-radio-dot { border-color: var(--app-primary); }
+    .reflexer-radio.selected .reflexer-radio-dot::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--app-primary);
+    }
+    .reflexer-radio-label { font-size: 16px; font-weight: 400; color: var(--app-primary); }
+    .reflexer-radio.selected .reflexer-radio-label { color: var(--app-primary); }
+    /* "Select Reflexer(s)" active = green on green */
+    .reflexer-radio.selected:has(input[value="select"]) { border-color: var(--green-200); background: var(--green-100); }
+    .reflexer-radio.selected:has(input[value="select"]) .reflexer-radio-dot { border-color: var(--green-500); }
+    .reflexer-radio.selected:has(input[value="select"]) .reflexer-radio-dot::after { background: var(--green-500); }
+    .reflexer-radio.selected:has(input[value="select"]) .reflexer-radio-label { color: var(--green-600); }
+    .reflexer-radio-meta { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 14px; font-weight: 500; color: var(--app-primary); }
+    .reflexer-select-btn {
+      display: none; align-items: center; gap: 10px;
+      margin-left: auto; padding: 0 8px; height: 32px;
+      background: #fff; color: var(--app-primary); border: 1px solid var(--black-alpha-200); border-radius: 8px;
+      font-family: inherit; font-size: 14px; font-weight: 500;
+      cursor: pointer; flex-shrink: 0; transition: background 0.15s;
+    }
+    .reflexer-radio.selected .reflexer-select-btn { display: inline-flex; }
+    .srb-avatars-inline { display: inline-flex; align-items: center; }
+    .srb-avatars-inline .srb-avatar { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; background: var(--gray-100); object-fit: cover; margin-right: -6px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--app-secondary); overflow: hidden; }
+    .srb-avatars-inline .srb-avatar:last-child { margin-right: 0; }
+    .srb-avatars-inline .srb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .reflexer-select-btn svg { width: 16px; height: 16px; color: var(--app-primary); }
+    .reflexer-select-btn:hover { background: var(--gray-100); }
+
+    /* Select Reflexers — button fallback + shared avatar styles */
     .select-reflexers-btn {
       display: flex; align-items: center; justify-content: space-between;
       width: 100%; padding: 8px 12px; min-height: 40px;
@@ -817,7 +878,7 @@
     .select-reflexers-btn .srb-content { display: flex; align-items: center; gap: 8px; min-width: 0; }
     .select-reflexers-btn .srb-text { color: var(--app-secondary); font-size: 16px; }
     .select-reflexers-btn.has-selection .srb-text { color: var(--app-primary); }
-    .select-reflexers-btn .srb-chevron { width: 18px; height: 18px; color: var(--app-secondary); flex-shrink: 0; }
+    .select-reflexers-btn .srb-chevron { width: 18px; height: 18px; color: var(--main-dark); flex-shrink: 0; }
     .srb-avatars { display: inline-flex; align-items: center; }
     .srb-avatars .srb-avatar { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; background: var(--gray-100); object-fit: cover; margin-right: -8px; box-sizing: border-box; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--app-secondary); overflow: hidden; }
     .srb-avatars .srb-avatar:last-child { margin-right: 0; }
@@ -829,11 +890,11 @@
     .prefs-modal { background: var(--main-white); width: 100%; max-width: 480px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); display: flex; flex-direction: column; max-height: calc(100vh - 96px); overflow: hidden; }
     .prefs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; }
     .prefs-title { font-size: 18px; font-weight: 600; color: var(--app-primary); margin: 0; }
-    .prefs-close { background: none; border: none; cursor: pointer; padding: 4px; color: var(--app-secondary); display: flex; align-items: center; justify-content: center; }
-    .prefs-close:hover { color: var(--app-primary); }
+    .prefs-close { background: none; border: none; cursor: pointer; padding: 4px; color: var(--app-primary); display: flex; align-items: center; justify-content: center; }
+    .prefs-close:hover { opacity: 0.7; }
     .prefs-context { display: flex; flex-direction: column; gap: 4px; padding: 0 20px 16px; }
-    .prefs-context-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--app-primary); }
-    .prefs-context-row .lucide, .prefs-context-row svg { width: 14px; height: 14px; color: var(--app-secondary); flex-shrink: 0; }
+    .prefs-context-row { display: flex; align-items: center; gap: 6px; font-size: 16px; color: var(--app-primary); }
+    .prefs-context-row .lucide, .prefs-context-row svg { width: 16px; height: 16px; color: var(--app-primary); flex-shrink: 0; }
     .prefs-summary {
       display: flex; align-items: center; justify-content: space-between;
       gap: 12px; margin: 0 20px 12px; padding: 10px 12px;
@@ -1259,18 +1320,8 @@
         }
         dateSpan.innerHTML = base;
 
-        var calCard = document.querySelector('.calendar-card');
-        if (calCard) {
-          calCard.querySelectorAll('.calendar-day').forEach(function(c) { c.classList.remove('selected'); });
-          if (dateVal) {
-            var d = new Date(dateVal);
-            if (!isNaN(d.getTime())) {
-              var ymd = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-              var m = calCard.querySelector('.calendar-day[data-date="' + ymd + '"]');
-              if (m) m.classList.add('selected');
-            }
-          }
-        }
+        if (dateVal) { renderCalendar(dateVal); }
+        else { calSelectedDate = null; renderCalendar(); }
 
         var sh = parseInt(startBlock.querySelector('.form-select-hour').value, 10);
         var sm = startBlock.querySelector('.form-select-min').value;
@@ -1451,16 +1502,61 @@
         updateSummaryPanel(); updateDatetimeSummary(); updateRolesSummary(); updateFlexInfo(); checkFormValid();
       });
 
-      // Date inputs: Flatpickr opens calendar below on click
+      // Dynamic right-side calendar
       var today = new Date();
       today.setHours(0, 0, 0, 0);
       var todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-      var calCard = document.querySelector('.calendar-card');
-      if (calCard) {
-        calCard.querySelectorAll('.calendar-day').forEach(function(c) { c.classList.remove('today'); });
-        var todayCell = calCard.querySelector('.calendar-day[data-date="' + todayStr + '"]');
-        if (todayCell) todayCell.classList.add('today');
+      var calViewYear = today.getFullYear();
+      var calViewMonth = today.getMonth();
+      var calSelectedDate = null; // 'YYYY-MM-DD' string
+
+      var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+      function renderCalendar(jumpToDate) {
+        if (!MONTH_NAMES) return;
+        var calCard = document.querySelector('.calendar-card');
+        if (!calCard) return;
+        if (jumpToDate) {
+          var jd = new Date(jumpToDate);
+          if (!isNaN(jd.getTime())) {
+            calViewYear = jd.getFullYear();
+            calViewMonth = jd.getMonth();
+            calSelectedDate = jd.getFullYear() + '-' + String(jd.getMonth() + 1).padStart(2, '0') + '-' + String(jd.getDate()).padStart(2, '0');
+          }
+        }
+        // Update header
+        var monthName = calCard.querySelector('.cal-month-name');
+        var monthYear = calCard.querySelector('.cal-month-year');
+        if (monthName) monthName.textContent = MONTH_NAMES[calViewMonth];
+        if (monthYear) monthYear.textContent = calViewYear;
+
+        // Build grid
+        var firstDay = new Date(calViewYear, calViewMonth, 1).getDay(); // 0=Sun
+        var daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+        var grid = calCard.querySelector('.calendar-grid');
+        if (!grid) return;
+        // Keep DOW headers, rebuild day cells
+        var html = '<div class="calendar-dow">Sun</div><div class="calendar-dow">Mon</div><div class="calendar-dow">Tue</div><div class="calendar-dow">Wed</div><div class="calendar-dow">Thu</div><div class="calendar-dow">Fri</div><div class="calendar-dow">Sat</div>';
+        // Empty cells before first day
+        for (var e = 0; e < firstDay; e++) html += '<div class="calendar-day"></div>';
+        for (var d = 1; d <= daysInMonth; d++) {
+          var ymd = calViewYear + '-' + String(calViewMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+          var cls = 'calendar-day';
+          if (ymd === todayStr) cls += ' today';
+          if (ymd === calSelectedDate) cls += ' selected';
+          html += '<div class="' + cls + '" data-date="' + ymd + '">' + d + '</div>';
+        }
+        grid.innerHTML = html;
+
+        // Wire nav buttons (re-bind since calCard may have changed on variant switch)
+        var btns = calCard.querySelectorAll('.calendar-nav-btn');
+        if (btns.length >= 2) {
+          btns[0].onclick = function() { calViewMonth--; if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; } renderCalendar(); };
+          btns[1].onclick = function() { calViewMonth++; if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; } renderCalendar(); };
+        }
       }
+
+      renderCalendar(); // show current month with today on load
       document.querySelectorAll('.date-input').forEach(function(el) {
         var wrap = el.closest('.date-input-wrap');
         var isEndsDate = el.id === 'ends-date-input';
@@ -1491,16 +1587,8 @@
               if (si) si.value = '';
             }
             if (instance.input && instance.input.id !== 'ends-date-input') {
-              var calCard = document.querySelector('.calendar-card');
-              if (calCard) {
-                calCard.querySelectorAll('.calendar-day').forEach(function(cell) { cell.classList.remove('selected'); });
-                if (selectedDates.length > 0) {
-                  var d = selectedDates[0];
-                  var ymd = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-                  var match = calCard.querySelector('.calendar-day[data-date="' + ymd + '"]');
-                  if (match) match.classList.add('selected');
-                }
-              }
+              if (selectedDates.length > 0) { renderCalendar(selectedDates[0]); }
+              else { calSelectedDate = null; renderCalendar(); }
             }
             updateDatetimeSummary(); updateSummaryPanel(); checkFormValid();
           },
@@ -1531,7 +1619,7 @@
     }
 
     /* ---- Reflexers roster (Supabase) — Austin only, gendered avatar fallback ---- */
-    var BRAND = 'Ariat';  // Retailer this prototype is themed for
+    var BRAND = 'Ralph Lauren Factory Store';  // Retailer this prototype is themed for
     var SUPABASE_URL = 'https://kxfbismfpmjwvemfznvm.supabase.co';
     var SUPABASE_KEY = 'sb_publishable_nSYVilgXE31QZXPtOEmTwQ_pUO8AE3P';
     var supa = (window.supabase && window.supabase.createClient)
@@ -1713,46 +1801,62 @@
     var prefsState = {
       committed: new Set(),     // saved selection (persists after Save)
       draft: new Set(),         // working selection (committed clone while modal is open)
-      page: 0,
-      pageSize: 10,
       query: '',
       onlySelected: false,      // toggled by "View Selections" link
       filters: { favorites: false, approved: false }
     };
 
-    // Real filters tied to BRAND (Ariat).
-    //   favorites → cahootz_workers.favorited_by_brands jsonb: ["Ariat", "Fossil", ...]
-    //   approved  → cahootz_workers.brands_worked jsonb: [{"name":"Ariat", ...}, ...]
-    function isFavorite(w) {
-      var arr = w.favorited_by_brands;
-      return Array.isArray(arr) && arr.indexOf(BRAND) !== -1;
-    }
-    function isApproved(w) {
-      var arr = w.brands_worked;
-      if (!Array.isArray(arr)) return false;
-      for (var i = 0; i < arr.length; i++) {
-        var item = arr[i];
-        if (item && item.name === BRAND) return true;
+    // Brand-pool: 96 workers who've worked at the brand (sorted by name).
+    // Within that pool the first 26 are tagged "favorites", next 43 "approved".
+    // Chips filter to those slices; no chips = full 96.
+    var FAVORITES_COUNT = 26;
+    var APPROVED_COUNT = 43;
+    var brandPool = null;   // built once after first fetch
+    var tagMap = {};        // worker.id → 'favorite' | 'approved' | null
+
+    function buildBrandPool(workers) {
+      var pool = workers.filter(function(w) {
+        var arr = w.brands_worked;
+        if (!Array.isArray(arr)) return false;
+        for (var i = 0; i < arr.length; i++) { if (arr[i] && arr[i].name === BRAND) return true; }
+        return false;
+      });
+      pool.sort(function(a, b) { return (a.name || '').localeCompare(b.name || ''); });
+      tagMap = {};
+      for (var i = 0; i < pool.length; i++) {
+        if (i < FAVORITES_COUNT) tagMap[pool[i].id] = 'favorite';
+        else if (i < FAVORITES_COUNT + APPROVED_COUNT) tagMap[pool[i].id] = 'approved';
       }
-      return false;
+      brandPool = pool;
+      return pool;
     }
 
     function fetchPrefsRoster(cb) {
-      if (rosterCache) { cb(rosterCache); return; }
+      if (brandPool) { cb(brandPool); return; }
       if (!supa) { cb([]); return; }
       supa.from('cahootz_workers')
-        .select('id, name, gender, photo, shifts_on_reflex, favorited_by_brands, brands_worked')
+        .select('id, name, gender, shifts_on_reflex, brands_worked')
         .eq('market', 'Austin')
         .order('name', { ascending: true })
-        .then(function(res) { rosterCache = res.data || []; cb(rosterCache); });
+        .then(function(res) {
+          rosterCache = res.data || [];
+          buildBrandPool(rosterCache);
+          cb(brandPool);
+        });
     }
 
     function prefsFiltered() {
       var q = prefsState.query.trim().toLowerCase();
-      var rows = rosterCache || [];
+      var rows = brandPool || [];
       if (prefsState.onlySelected) rows = rows.filter(function(w) { return prefsState.draft.has(w.id); });
-      if (prefsState.filters.favorites) rows = rows.filter(isFavorite);
-      if (prefsState.filters.approved) rows = rows.filter(isApproved);
+      var hasFav = prefsState.filters.favorites;
+      var hasApp = prefsState.filters.approved;
+      if (hasFav || hasApp) {
+        rows = rows.filter(function(w) {
+          var tag = tagMap[w.id];
+          return (hasFav && tag === 'favorite') || (hasApp && tag === 'approved');
+        });
+      }
       if (q) rows = rows.filter(function(w) { return (w.name || '').toLowerCase().indexOf(q) !== -1; });
       return rows;
     }
@@ -1763,7 +1867,7 @@
         var on = !!prefsState.filters[key];
         chip.classList.toggle('active', on);
         var label = chip.querySelector('span') ? chip.querySelector('span').textContent : '';
-        chip.innerHTML = '<i data-lucide="' + (on ? 'x' : 'plus') + '"></i><span>' + label + '</span>';
+        chip.innerHTML = '<span>' + label + '</span><i data-lucide="' + (on ? 'x' : 'plus') + '"></i>';
       });
     }
 
@@ -1785,29 +1889,24 @@
       '</div>';
     }
 
+    // Lazy-load: render batchSize rows at a time, append more on scroll.
+    var PREFS_BATCH = 20;
+    var prefsRenderedCount = 0;
+    var prefsCurrentRows = [];
+
     function renderPrefs() {
       var list = document.getElementById('prefs-list');
       var info = document.getElementById('prefs-pagination-info');
-      var prev = document.getElementById('prefs-prev');
-      var next = document.getElementById('prefs-next');
       if (!list) return;
 
-      var rows = prefsFiltered();
-      var total = rows.length;
-      var pageSize = prefsState.pageSize;
-      var maxPage = Math.max(0, Math.ceil(total / pageSize) - 1);
-      if (prefsState.page > maxPage) prefsState.page = maxPage;
-      var start = prefsState.page * pageSize;
-      var end = Math.min(start + pageSize, total);
-      var slice = rows.slice(start, end);
+      prefsCurrentRows = prefsFiltered();
+      prefsRenderedCount = 0;
+      list.innerHTML = '';
+      appendPrefsBatch(list);
 
-      list.innerHTML = slice.length
-        ? slice.map(prefsRowHtml).join('')
-        : '<div class="prefs-state">No reflexers found.</div>';
-
-      if (info) info.textContent = total ? ('Showing ' + (start + 1) + '–' + end + ' of ' + total) : 'Showing 0 of 0';
-      if (prev) prev.disabled = prefsState.page === 0;
-      if (next) next.disabled = prefsState.page >= maxPage;
+      var total = prefsCurrentRows.length;
+      if (info) info.textContent = total ? (total + ' Reflexer' + (total === 1 ? '' : 's')) : 'No reflexers found.';
+      if (!total) list.innerHTML = '<div class="prefs-state">No reflexers found.</div>';
 
       // Update count + avatar preview in summary
       var count = prefsState.draft.size;
@@ -1817,6 +1916,17 @@
       if (avEl) avEl.innerHTML = prefsAvatarsHtml(Array.from(prefsState.draft).slice(0, 3));
 
       renderPrefsChips();
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+
+    function appendPrefsBatch(list) {
+      if (!list) list = document.getElementById('prefs-list');
+      if (!list) return;
+      var end = Math.min(prefsRenderedCount + PREFS_BATCH, prefsCurrentRows.length);
+      var html = '';
+      for (var i = prefsRenderedCount; i < end; i++) html += prefsRowHtml(prefsCurrentRows[i]);
+      if (html) { list.insertAdjacentHTML('beforeend', html); }
+      prefsRenderedCount = end;
       if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
     }
 
@@ -1837,9 +1947,9 @@
       var loc = document.getElementById('location-select');
       var locText = loc && loc.options[loc.selectedIndex] && loc.value
         ? loc.options[loc.selectedIndex].textContent
-        : 'Select a location';
+        : 'Location';
       var dateInput = document.querySelector('#variant-host .date-input');
-      var dateText = (dateInput && dateInput.value) ? dateInput.value : 'Select a date';
+      var dateText = (dateInput && dateInput.value) ? dateInput.value : 'Date';
       // Time: read start/end from the form
       var startBlock = document.querySelector('#variant-host .start-block');
       var endBlock = document.querySelector('#variant-host .end-block');
@@ -1852,7 +1962,7 @@
         return h.value + ':' + (m && m.value ? m.value : '00') + (ap ? ap.value.toLowerCase() : '');
       }
       var s = readTime(startBlock), e = readTime(endBlock);
-      var timeText = (s && e) ? (s + ' – ' + e) : (s || 'Select a time');
+      var timeText = (s && e) ? (s + ' – ' + e) : (s || 'Time');
       var locEl = document.getElementById('prefs-ctx-location');
       var dateEl = document.getElementById('prefs-ctx-date');
       var timeEl = document.getElementById('prefs-ctx-time');
@@ -1866,7 +1976,6 @@
       if (!ov) return;
       // Clone committed -> draft so user can cancel without losing committed state
       prefsState.draft = new Set(prefsState.committed);
-      prefsState.page = 0;
       prefsState.query = '';
       prefsState.onlySelected = false;
       prefsState.filters = { favorites: false, approved: false };
@@ -1892,27 +2001,36 @@
     }
 
     function updateSelectReflexersBtn() {
-      var btn = document.getElementById('select-reflexers-btn');
-      var text = document.getElementById('srb-text');
-      var avs = document.getElementById('srb-avatars');
-      if (!btn) return;
+      var selectBtn = document.getElementById('srb-select-btn');
+      if (!selectBtn) return;
       var n = prefsState.committed.size;
       if (n === 0) {
-        btn.classList.remove('has-selection');
-        if (text) text.textContent = 'Select preferences';
-        if (avs) { avs.hidden = true; avs.innerHTML = ''; }
+        selectBtn.innerHTML = 'Select <i data-lucide="plus"></i>';
       } else {
-        btn.classList.add('has-selection');
-        if (text) text.textContent = n + ' selected';
-        if (avs) { avs.hidden = false; avs.innerHTML = prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)); }
+        selectBtn.innerHTML =
+          '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
+          '<span>' + n + ' Selected</span>' +
+          '<i data-lucide="plus"></i>';
       }
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
     }
 
     function wirePrefs() {
       // Triggers (delegated so it works after each loadVariant clone)
       document.body.addEventListener('click', function(e) {
+        // "Select" button opens prefs modal
         var trigger = e.target.closest('.js-open-prefs');
         if (trigger) { e.preventDefault(); openPrefs(); return; }
+        // Radio toggle — swap selected class (no modal auto-open)
+        var radio = e.target.closest('.reflexer-radio');
+        if (radio && !e.target.closest('.reflexer-select-btn')) {
+          var radios = radio.closest('.reflexer-radios');
+          if (radios) {
+            radios.querySelectorAll('.reflexer-radio').forEach(function(r) { r.classList.remove('selected'); });
+            radio.classList.add('selected');
+            radio.querySelector('input[type="radio"]').checked = true;
+          }
+        }
         // Row toggle (event delegation inside the modal)
         var row = e.target.closest('.prefs-row');
         if (row) {
@@ -1928,8 +2046,6 @@
       var saveBtn = document.getElementById('prefs-save');
       var overlay = document.getElementById('prefs-overlay');
       var search = document.getElementById('prefs-search');
-      var prev = document.getElementById('prefs-prev');
-      var next = document.getElementById('prefs-next');
       var viewSel = document.getElementById('prefs-view-selections');
 
       if (closeBtn) closeBtn.addEventListener('click', closePrefs);
@@ -1944,18 +2060,17 @@
       });
       if (search) search.addEventListener('input', function() {
         prefsState.query = this.value;
-        prefsState.page = 0;
         renderPrefs();
       });
-      if (prev) prev.addEventListener('click', function() {
-        if (prefsState.page > 0) { prefsState.page--; renderPrefs(); }
-      });
-      if (next) next.addEventListener('click', function() {
-        prefsState.page++; renderPrefs();
+      var prefsList = document.getElementById('prefs-list');
+      if (prefsList) prefsList.addEventListener('scroll', function() {
+        if (prefsRenderedCount >= prefsCurrentRows.length) return;
+        if (this.scrollTop + this.clientHeight >= this.scrollHeight - 80) {
+          appendPrefsBatch(this);
+        }
       });
       if (viewSel) viewSel.addEventListener('click', function() {
         prefsState.onlySelected = !prefsState.onlySelected;
-        prefsState.page = 0;
         this.textContent = prefsState.onlySelected ? 'View All' : 'View Selections';
         renderPrefs();
       });
@@ -1967,7 +2082,6 @@
         var key = chip.getAttribute('data-filter');
         if (!(key in prefsState.filters)) return;
         prefsState.filters[key] = !prefsState.filters[key];
-        prefsState.page = 0;
         renderPrefs();
       });
     }
@@ -2089,7 +2203,8 @@
                     </select>
                   </div>
                   <label class="switch-row" id="flexible-switch" style="margin-top:0;gap:4px;">
-                    <input type="checkbox" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--green-500,#4BA098);">
+                    <input type="checkbox" checked class="custom-check">
+                    <span class="custom-check-box"><i data-lucide="check"></i></span>
                     <span>Flexible Start</span>
                     <div style="display:flex;align-items:center;"><i data-lucide="info" class="switch-info"></i></div>
                   </label>
@@ -2273,8 +2388,8 @@
           <div class="calendar-header">
             <span class="calendar-month"><span class="cal-month-name">March</span><span class="cal-month-year">2026</span></span>
             <div>
-              <button class="calendar-nav-btn">‹</button>
-              <button class="calendar-nav-btn">›</button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-left"></i></button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-right"></i></button>
             </div>
           </div>
           <div class="calendar-grid">
@@ -2351,7 +2466,8 @@
                     </select>
                   </div>
                   <label class="switch-row" id="flexible-switch" style="margin-top:0;gap:4px;">
-                    <input type="checkbox" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--green-500,#4BA098);">
+                    <input type="checkbox" checked class="custom-check">
+                    <span class="custom-check-box"><i data-lucide="check"></i></span>
                     <span>Flexible Start</span>
                     <div style="display:flex;align-items:center;"><i data-lucide="info" class="switch-info"></i></div>
                   </label>
@@ -2459,6 +2575,28 @@
               </select>
             </div>
           </div>
+        <!-- Select Reflexers — radio toggle + prefs modal -->
+        <div class="form-question" style="margin-top:16px;">
+          <label class="form-label" style="display:flex;align-items:center;gap:6px;">Select Reflexers
+            <span class="info-tooltip-wrap">
+              <i data-lucide="info" class="info-icon"></i>
+              <span class="info-tooltip">Your favorites and roster are always prioritized for every Flex. You can also request specific Reflexers for this shift. If you need more people than you've selected, we'll fill the remaining spots with the best available.</span>
+            </span>
+          </label>
+          <div class="reflexer-radios" id="reflexer-radios">
+            <label class="reflexer-radio selected">
+              <input type="radio" name="reflexer-mode" value="best" checked />
+              <span class="reflexer-radio-dot"></span>
+              <span class="reflexer-radio-label">Best Available</span>
+            </label>
+            <label class="reflexer-radio">
+              <input type="radio" name="reflexer-mode" value="select" />
+              <span class="reflexer-radio-dot"></span>
+              <span class="reflexer-radio-label">Select Reflexer(s)</span>
+              <button type="button" class="reflexer-select-btn js-open-prefs" id="srb-select-btn">Select <i data-lucide="plus"></i></button>
+            </label>
+          </div>
+        </div>
         </div>
 
         <hr class="section-divider" />
@@ -2493,25 +2631,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <hr class="section-divider" />
-
-        <!-- Select Reflexers — opens prefs modal -->
-        <div class="form-question">
-          <label class="form-label">Select Reflexers
-            <span class="info-tooltip-wrap">
-              <i data-lucide="info" class="info-icon"></i>
-              <span class="info-tooltip">Pick specific reflexers you'd prefer for this shift, or leave open to all qualified.</span>
-            </span>
-          </label>
-          <button type="button" class="select-reflexers-btn js-open-prefs" id="select-reflexers-btn">
-            <span class="srb-content">
-              <span class="srb-avatars" id="srb-avatars" hidden></span>
-              <span class="srb-text" id="srb-text">Select preferences</span>
-            </span>
-            <i data-lucide="chevron-right" class="srb-chevron"></i>
-          </button>
         </div>
 
         <div class="form-divider">
@@ -2554,8 +2673,8 @@
           <div class="calendar-header">
             <span class="calendar-month"><span class="cal-month-name">March</span><span class="cal-month-year">2026</span></span>
             <div>
-              <button class="calendar-nav-btn">‹</button>
-              <button class="calendar-nav-btn">›</button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-left"></i></button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-right"></i></button>
             </div>
           </div>
           <div class="calendar-grid">
@@ -2632,7 +2751,8 @@
                     </select>
                   </div>
                   <label class="switch-row" id="flexible-switch" style="margin-top:0;gap:4px;">
-                    <input type="checkbox" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--green-500,#4BA098);">
+                    <input type="checkbox" checked class="custom-check">
+                    <span class="custom-check-box"><i data-lucide="check"></i></span>
                     <span>Flexible Start</span>
                     <div style="display:flex;align-items:center;"><i data-lucide="info" class="switch-info"></i></div>
                   </label>
@@ -2816,8 +2936,8 @@
           <div class="calendar-header">
             <span class="calendar-month"><span class="cal-month-name">March</span><span class="cal-month-year">2026</span></span>
             <div>
-              <button class="calendar-nav-btn">‹</button>
-              <button class="calendar-nav-btn">›</button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-left"></i></button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-right"></i></button>
             </div>
           </div>
           <div class="calendar-grid">
@@ -2894,7 +3014,8 @@
                     </select>
                   </div>
                   <label class="switch-row" id="flexible-switch" style="margin-top:0;gap:4px;">
-                    <input type="checkbox" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--green-500,#4BA098);">
+                    <input type="checkbox" checked class="custom-check">
+                    <span class="custom-check-box"><i data-lucide="check"></i></span>
                     <span>Flexible Start</span>
                     <div style="display:flex;align-items:center;"><i data-lucide="info" class="switch-info"></i></div>
                   </label>
@@ -3078,8 +3199,8 @@
           <div class="calendar-header">
             <span class="calendar-month"><span class="cal-month-name">March</span><span class="cal-month-year">2026</span></span>
             <div>
-              <button class="calendar-nav-btn">‹</button>
-              <button class="calendar-nav-btn">›</button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-left"></i></button>
+              <button class="calendar-nav-btn"><i data-lucide="chevron-right"></i></button>
             </div>
           </div>
           <div class="calendar-grid">
@@ -3110,10 +3231,10 @@
     <button type="button" class="dev-menu-trigger" aria-label="Variants" aria-haspopup="menu" aria-expanded="false"></button>
     <div class="dev-menu-dropdown" hidden role="menu">
       <div class="dev-menu-section-header">Variants</div>
-      <button type="button" class="dev-menu-item" data-variant="original" role="menuitem">Original</button>
-      <button type="button" class="dev-menu-item active" data-variant="opt01" role="menuitem">Opt 01</button>
-      <button type="button" class="dev-menu-item" data-variant="opt02" role="menuitem">Opt 02</button>
-      <button type="button" class="dev-menu-item" data-variant="opt03" role="menuitem">Opt 03</button>
+      <button type="button" class="dev-menu-item" data-variant="original" role="menuitem">Original Form</button>
+      <button type="button" class="dev-menu-item active" data-variant="opt01" role="menuitem">Opt 01_Flat Fee</button>
+      <button type="button" class="dev-menu-item" data-variant="opt02" role="menuitem">Opt 02_Subscription Allowance</button>
+      <button type="button" class="dev-menu-item" data-variant="opt03" role="menuitem">Opt 03_Subscription Credits</button>
     </div>
   </div>
 
@@ -3134,13 +3255,13 @@
   <div id="prefs-overlay" class="prefs-overlay" aria-hidden="true">
     <div class="prefs-modal" role="dialog" aria-labelledby="prefs-title">
       <div class="prefs-header">
-        <h2 id="prefs-title" class="prefs-title">Select Preferences</h2>
+        <h2 id="prefs-title" class="prefs-title">Select Reflexer(s)</h2>
         <button id="prefs-close" class="prefs-close" aria-label="Close"><i data-lucide="x"></i></button>
       </div>
       <div class="prefs-context">
-        <div class="prefs-context-row"><i data-lucide="map-pin"></i><span id="prefs-ctx-location">Select a location</span></div>
-        <div class="prefs-context-row"><i data-lucide="calendar"></i><span id="prefs-ctx-date">Select a date</span></div>
-        <div class="prefs-context-row"><i data-lucide="clock"></i><span id="prefs-ctx-time">Select a time</span></div>
+        <div class="prefs-context-row"><i data-lucide="map-pin"></i><span id="prefs-ctx-location">Location</span></div>
+        <div class="prefs-context-row"><i data-lucide="calendar"></i><span id="prefs-ctx-date">Date</span></div>
+        <div class="prefs-context-row"><i data-lucide="clock"></i><span id="prefs-ctx-time">Time</span></div>
       </div>
       <div class="prefs-summary">
         <div class="prefs-summary-left">
@@ -3161,11 +3282,7 @@
         <div class="prefs-state">Loading…</div>
       </div>
       <div class="prefs-pagination">
-        <span id="prefs-pagination-info">Showing 0 of 0</span>
-        <div class="prefs-page-btns">
-          <button type="button" class="prefs-page-btn" id="prefs-prev" aria-label="Previous page"><i data-lucide="chevron-left"></i></button>
-          <button type="button" class="prefs-page-btn" id="prefs-next" aria-label="Next page"><i data-lucide="chevron-right"></i></button>
-        </div>
+        <span id="prefs-pagination-info"></span>
       </div>
       <div class="prefs-footer">
         <button type="button" class="prefs-cancel-btn" id="prefs-cancel">Cancel</button>

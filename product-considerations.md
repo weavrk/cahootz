@@ -1,11 +1,36 @@
 # Product Considerations
 
-Running list of open product questions and decisions to revisit. Not scoped work — think of it as a scratchpad for "we should think about this before shipping."
-
 ## Open
 
-- **Confirm only specific Reflexer request** — validate the flow where a requester specifies a particular Reflexer (vs. open to any qualified). Edge cases: what happens if the specified Reflexer declines, is unavailable, or doesn't meet the shift's role requirements? Does the request auto-fall-back to open, or stay locked?
+- Is there retailer behavior we are trying to nudge with Cahootz, why do we want to release this?
+  - What percent are actually already cahootz'd?
+- What does this 'solve' for retailers?
+  - Short or long term booking?
+  - Confidence in worker ability to perform tasks
+  - Less training
+- What are the risks?
+  - Flex reduction as a result of worker not available and we cancel
+  - Reduced flex availability to workers in market (worker attrition)
+- Cost model
+  - Pay per use: 
+    - Increased hourly rate
+    - Flat fee per request
+  - Subscription Upgrade (min usage plan)
+    - Included allowance per budget period
+    - Credits
+    - Unlimited, but would always fallback to reopen
+- Fill-> Cancel/Reopen?
+  - Do we offer the fill or cancel shift? 
+  - Or does the request auto reopen and run normally? 
+  - What's the timeframe for accepting before Reflex has to take an action (remove shift, open to others)
+- Accessible to which worker cohorts
+  - Only "has worked at store"
+  - All market workers
+  - Favorites/Approved
 
-## Resolved
+# Design Considerations
 
-_(none yet)_
+- How would this surface in the worker app?
+- Need to update the status tag in retailer portal "Finding Reflexer"
+- Need some type of shift tag to indicate cahootz
+
