@@ -852,7 +852,7 @@
     .reflexer-radio-meta { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 14px; font-weight: 500; color: var(--app-primary); }
     .reflexer-select-btn {
       display: none; align-items: center; gap: 10px;
-      margin-left: auto; padding: 0 8px; height: 32px;
+      margin-left: auto; padding: 0 20px; height: 32px;
       background: #fff; color: var(--app-primary); border: 1px solid var(--black-alpha-200); border-radius: 8px;
       font-family: inherit; font-size: 14px; font-weight: 500;
       cursor: pointer; flex-shrink: 0; transition: background 0.15s;
@@ -1892,7 +1892,7 @@
           return (hasFav && tag === 'favorite') || (hasApp && tag === 'approved');
         });
       }
-      if (q) rows = rows.filter(function(w) { return (w.name || '').toLowerCase().indexOf(q) !== -1; });
+      if (q) rows = rows.filter(function(w) { return (w.name || '').toLowerCase().indexOf(q) === 0; });
       return rows;
     }
 
