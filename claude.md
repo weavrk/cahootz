@@ -25,16 +25,27 @@ Inside the file: `<style>` block, then `<body>` markup (app shell + variant `<te
 The form lives in 4 `<template>` elements (`tpl-original`, `tpl-opt01`, `tpl-opt02`, `tpl-opt03`), all initially identical. The floating dev-menu circle (bottom-right) switches between them. **Opt 01 is the landing default** (`DEFAULT_VARIANT` constant). Edit each template independently as variants diverge — `init()` handles the cloned DOM the same way regardless of which variant is active.
 
 - **Original** — baseline form, untouched reference.
-- **Opt 01** — adds "Select Reflexers" field that opens the **Select Preferences modal** (`#prefs-overlay`). Modal has Favorites + Approved filter chips, search, paginated list (10/page), Cancel + 300px Save in footer. Selection is brand-aware (see Brand below). State: `prefsState` with `committed` (saved) vs `draft` (in-modal) sets.
+- **Opt 01** — adds "Select Reflexer(s)" field that opens the **Select Reflexer(s) modal** (`#prefs-overlay`). Modal has Favorites + Approved filter chips, search, lazy-loaded list, Cancel + Save footer. State: `prefsState` with `committed` (saved) vs `draft` (in-modal) sets.
 - **Opt 02 / Opt 03** — TBD.
 
-## Brand
+## Brand & Prefs Pool
 
-`var BRAND = 'Ariat'` at the top of the script. Drives the Opt 01 prefs filters:
-- **Favorites** chip → workers whose `cahootz_workers.favorited_by_brands` (jsonb array of strings) includes `BRAND`.
-- **Approved** chip → workers with an entry in `cahootz_workers.brands_worked` (jsonb array of `{name, ...}` objects) where `name === BRAND`.
+`var BRAND = 'Ralph Lauren Factory Store'` at the top of the script.
 
-To re-skin for another retailer, change the `BRAND` constant — both filters update automatically.
+**Base pool:** the Select Reflexer(s) modal only shows the 96 Austin workers whose `brands_worked` includes `BRAND` (via `buildBrandPool()`). This is NOT all 720 Austin workers.
+
+**Chip tagging is hardcoded by index position** — the DB `favorited_by_brands` field is not used because real favorites fully overlap with approved in the data. Instead, `buildBrandPool()` sorts the 96 alphabetically and tags them:
+- First `FAVORITES_COUNT` (26) → tagged `'favorite'`
+- Next `APPROVED_COUNT` (43) → tagged `'approved'`
+- Remaining (27) → untagged, still in base pool
+
+**Chip behavior (additive):**
+- No chips → all 96
+- Favorites → 26
+- Approved → 43
+- Both → 26 + 43 = 69
+
+Each row shows a "Favorite" (amber) or "Approved" (green) tag next to the name. To change counts, update `FAVORITES_COUNT` / `APPROVED_COUNT` constants.
 
 ## Dev Server
 
