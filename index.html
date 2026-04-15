@@ -82,6 +82,7 @@
       --pink-200: #FFE6E6;
       --pink-300: #FFD7D7;
       --pink-600: #E68B8B;
+      --pink-700: #C26B6B;
       --green-50: #F3FAF9;
       --green-100: #E6F6F3;
       --green-200: #C2E7E1;
@@ -536,6 +537,10 @@
     }
     .summary-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--app-primary); }
     .summary-row { display: flex; align-items: flex-start; gap: 8px; font-size: 16px; color: var(--app-primary); margin-bottom: 8px; }
+    #summary-reflexers-row.has-selections { align-items: center; }
+    #summary-reflexers-row.has-selections > .summary-icon-wrap { display: none; }
+    #summary-reflexers-text { display: inline-flex; align-items: center; gap: 8px; }
+    #summary-reflexers-text .srb-avatars-inline .srb-avatar { width: 28px; height: 28px; font-size: 11px; }
     .summary-icon-wrap { padding-top: 2px; flex-shrink: 0; }
     .summary-icon, .summary-row .lucide, .summary-row svg, .summary-icon-wrap svg { width: 16px !important; height: 16px !important; flex-shrink: 0; }
     #summary-date-text { line-height: 20px; }
@@ -971,10 +976,10 @@
     .prefs-meta { flex: 1; min-width: 0; }
     .prefs-name { font-size: 14px; font-weight: 500; color: var(--app-primary); margin: 0; line-height: 1.3; display: grid; grid-template-columns: 100px max-content; align-items: center; gap: 6px; }
     .prefs-name-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .prefs-tag { font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 4px; white-space: nowrap; display: inline-flex; align-items: center; gap: 3px; }
-    .prefs-tag svg, .prefs-tag .lucide { width: 10px; height: 10px; }
-    .prefs-tag.fav { background: #FDE8E8; color: #E05A6E; }
-    .prefs-tag.app { background: #DBEAFE; color: #5B7FC2; }
+    .prefs-tag { font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
+    .prefs-tag svg, .prefs-tag .lucide { width: 12px; height: 12px; }
+    .prefs-tag.fav { background: var(--pink-200); color: var(--app-primary); }
+    .prefs-tag.app { background: #DBEAFE; color: var(--app-primary); }
     .prefs-sub { font-size: 12px; color: var(--text-hint); margin-top: 2px; }
     .prefs-checkbox {
       width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--app-tertiary);
@@ -2047,16 +2052,31 @@
     }
 
     function updateSelectReflexersBtn() {
-      var selectBtn = document.getElementById('srb-select-btn');
-      if (!selectBtn) return;
       var n = prefsState.committed.size;
-      if (n === 0) {
-        selectBtn.innerHTML = 'Select <i data-lucide="plus"></i>';
-      } else {
-        selectBtn.innerHTML =
-          '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
-          '<span>' + n + ' Selected</span>' +
-          '<i data-lucide="plus"></i>';
+      var selectBtn = document.getElementById('srb-select-btn');
+      if (selectBtn) {
+        if (n === 0) {
+          selectBtn.innerHTML = 'Select <i data-lucide="plus"></i>';
+        } else {
+          selectBtn.innerHTML =
+            '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
+            '<span>' + n + ' Selected</span>' +
+            '<i data-lucide="plus"></i>';
+        }
+      }
+      // Update Request Summary row (Opt 01)
+      var sumRow = document.getElementById('summary-reflexers-row');
+      var sumText = document.getElementById('summary-reflexers-text');
+      if (sumText) {
+        if (n === 0) {
+          if (sumRow) sumRow.classList.remove('has-selections');
+          sumText.textContent = 'Best Available';
+        } else {
+          if (sumRow) sumRow.classList.add('has-selections');
+          sumText.innerHTML =
+            '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
+            '<span>' + n + ' Selected</span>';
+        }
       }
       if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
     }
@@ -2745,6 +2765,7 @@
           <div class="summary-row" id="summary-date-row"><div class="summary-icon-wrap"><i data-lucide="calendar" class="summary-icon"></i></div><span id="summary-date-text">Select Date</span></div>
           <div class="summary-row" id="summary-time-row"><div class="summary-icon-wrap"><i data-lucide="clock" class="summary-icon"></i></div><span id="summary-time-text">CDT US/Central</span></div>
           <div class="summary-row"><div class="summary-icon-wrap"><i data-lucide="map-pin" class="summary-icon"></i></div><span id="summary-location-text">Select Location</span></div>
+          <div class="summary-row" id="summary-reflexers-row"><div class="summary-icon-wrap"><i data-lucide="users" class="summary-icon"></i></div><span id="summary-reflexers-text">Best Available</span></div>
           <div class="summary-row" id="summary-roles-row" style="cursor:pointer;"><div class="summary-icon-wrap"><i data-lucide="user-plus" class="summary-icon"></i></div><span id="summary-roles-text">Add Support</span></div>
           <div class="budget-section">
             <div class="budget-label">Budget Impact</div>
