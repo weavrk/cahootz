@@ -462,12 +462,17 @@
     .booked-flex-title { font-size: 24px; font-weight: 700; color: var(--app-primary); margin: 0; }
     .cancel-btn { padding: 6px 16px; background: var(--main-white); border: 1px solid var(--gray-100); border-radius: 6px; font-size: 14px; font-weight: 500; color: var(--app-primary); cursor: pointer; flex-shrink: 0; }
     .cancel-btn:hover { background: var(--gray-50); }
-    .booked-flex-location { display: flex; align-items: center; gap: 4px; color: var(--app-primary); font-size: 16px; font-weight: 400; margin-bottom: 16px; }
+    .booked-flex-location { display: flex; align-items: center; gap: 4px; color: var(--app-primary); font-size: 16px; font-weight: 400; margin-bottom: 4px; }
     .booked-flex-location .lucide { width: 16px; height: 16px; color: var(--app-primary); }
+    .booked-flex-reflexers { display: flex; align-items: center; gap: 8px; color: var(--app-primary); font-size: 16px; font-weight: 400; margin-bottom: 16px; }
+    .booked-flex-reflexers .lucide { width: 16px; height: 16px; color: var(--app-primary); flex-shrink: 0; }
+    .booked-flex-reflexers .srb-avatars-inline .srb-avatar { width: 24px; height: 24px; }
+    .booked-flex-divider { border: none; border-top: 1px solid var(--black-alpha-100); margin: 16px 0; }
     .booked-flex-date { font-size: 18px; font-weight: 500; color: var(--app-primary); margin-bottom: 8px; }
     .booked-flex-time { display: flex; align-items: center; gap: 6px; color: var(--app-primary); font-size: 16px; font-weight: 400; margin-bottom: 4px; }
     .booked-flex-time .lucide { width: 16px; height: 16px; color: var(--app-primary); }
-    .booked-flex-role { color: var(--app-secondary); font-size: 14px; font-weight: 400; margin-bottom: 4px; }
+    .booked-flex-role { display: flex; align-items: center; gap: 6px; color: var(--app-primary); font-size: 16px; font-weight: 400; margin-bottom: 4px; }
+    .booked-flex-role .lucide, .booked-flex-role svg { width: 16px; height: 16px; color: var(--app-primary); flex-shrink: 0; }
     .booked-flex-total-hrs { display: flex; align-items: center; gap: 4px; color: var(--app-primary); font-size: 16px; font-weight: 400; margin-bottom: 0; }
     .booked-flex-total-hrs .lucide { width: 16px; height: 16px; color: var(--app-primary); }
     .booked-flex-shift { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--black-alpha-100); }
@@ -1484,9 +1489,23 @@
         var eampm = endBlock.querySelector('.form-select-ampm').value;
         var hours = (!isNaN(sh) && !isNaN(eh)) ? Math.max(0, toHour24(eh, eampm) - toHour24(sh, sampm)) : 0;
 
+        // Map role → lucide icon (matches the role chips in the form HTML).
+        var ROLE_ICONS = {
+          'Sales Associate': 'shopping-bag',
+          'Greeter': 'smile',
+          'Fitting Rooms': 'shirt',
+          'Floor Organization': 'layout-grid',
+          'Cashier': 'circle-dollar-sign',
+          'Inventory Management': 'clipboard-check',
+          'Shipments': 'truck',
+          'Omni Help': 'expand',
+          'NSO Support': 'map-pin-plus',
+          'Event Help': 'calendars'
+        };
         var selectedRoles = [];
         document.querySelectorAll('.role-chip.checked').forEach(function(chip) {
-          selectedRoles.push({ name: chip.getAttribute('data-role'), icon: (chip.querySelector('[data-lucide]') || {}).getAttribute ? chip.querySelector('[data-lucide]').getAttribute('data-lucide') : 'briefcase' });
+          var name = chip.getAttribute('data-role');
+          selectedRoles.push({ name: name, icon: ROLE_ICONS[name] || 'briefcase' });
         });
 
         var shiftCount = getProposedShiftCount();
@@ -1502,8 +1521,16 @@
         var html = '<div class="booked-flex-header">';
         html += '<div class="booked-flex-info"><h3 class="booked-flex-title">' + flexLabel + '</h3>';
         if (totalFlexes > 1) html += '<div class="booked-flex-total-hrs"><i data-lucide="calendar-clock"></i><span>' + totalHours + ' hrs total</span></div>';
-        html += '<div class="booked-flex-location"><i data-lucide="map-pin"></i><span>' + locationText + '</span></div></div>';
+        html += '<div class="booked-flex-location"><i data-lucide="map-pin"></i><span>' + locationText + '</span></div>';
+        var prefsN = prefsState.committed.size;
+        if (prefsN > 0) {
+          html += '<div class="booked-flex-reflexers"><i data-lucide="users"></i>' +
+            '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
+            '<span>' + prefsN + ' Selected</span></div>';
+        }
+        html += '</div>';
         html += '<button class="cancel-btn">Cancel</button></div>';
+        html += '<hr class="booked-flex-divider" />';
 
         var timeLabel = fmtTime(sh, sm, sampm) + ' - ' + fmtTime(eh, em, eampm) + ' CST · ' + hours + ' hrs';
         shiftDates.forEach(function(d) {
@@ -1511,7 +1538,9 @@
           html += '<div class="booked-flex-date">' + fmtDate(d) + '</div>';
           html += '<div class="booked-flex-time"><i data-lucide="clock"></i><span>' + timeLabel + '</span></div>';
           if (selectedRoles.length > 0) {
-            html += '<div class="booked-flex-role">' + selectedRoles.map(function(r) { return r.name; }).join(', ') + '</div>';
+            selectedRoles.forEach(function(r) {
+              html += '<div class="booked-flex-role"><i data-lucide="' + r.icon + '"></i><span>' + r.name + '</span></div>';
+            });
           }
           html += '</div>';
         });
