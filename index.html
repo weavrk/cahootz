@@ -63,6 +63,7 @@
     :root {
       --navy-50: #F4F6F7;
       --navy-100: #EAEDEF;
+      --navy-400: #8895A0;
       --black-alpha-100: rgba(0, 0, 0, 0.06);
       --black-alpha-200: rgba(0, 0, 0, 0.08);
       --black-alpha-500: rgba(0, 0, 0, 0.36);
@@ -83,6 +84,10 @@
       --pink-300: #FFD7D7;
       --pink-600: #E68B8B;
       --pink-700: #C26B6B;
+      --blue-100: #E0F1FC;
+      --blue-300: #90BBEF;
+      --navy-700: #1E384A;
+      --yellow-100: #FFF7D6;
       --green-50: #F3FAF9;
       --green-100: #E6F6F3;
       --green-200: #C2E7E1;
@@ -459,7 +464,10 @@
     .success-divider { border: none; border-top: 1px solid var(--black-alpha-100); margin: 0 -24px 32px; }
     .booked-flex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0; }
     .booked-flex-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+    .booked-flex-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .booked-flex-title { font-size: 24px; font-weight: 700; color: var(--app-primary); margin: 0; }
+    .special-request-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; background: var(--green-100); color: var(--green-600); font-size: 14px; font-weight: 500; white-space: nowrap; }
+    .special-request-tag .lucide, .special-request-tag svg { width: 16px; height: 16px; color: var(--green-600); }
     .cancel-btn { padding: 6px 16px; background: var(--main-white); border: 1px solid var(--gray-100); border-radius: 6px; font-size: 14px; font-weight: 500; color: var(--app-primary); cursor: pointer; flex-shrink: 0; }
     .cancel-btn:hover { background: var(--gray-50); }
     .booked-flex-location { display: flex; align-items: center; gap: 4px; color: var(--app-primary); font-size: 16px; font-weight: 400; margin-bottom: 4px; }
@@ -828,8 +836,8 @@
     /* Select Reflexers — radio toggle (Opt 01) */
     .reflexer-radios { display: flex; flex-direction: column; gap: 4px; }
     .reflexer-radio {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 8px; height: 42px; cursor: pointer;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+      padding: 12px; cursor: pointer;
       border: 1px solid transparent; border-radius: 6px;
       background: var(--main-white);
       transition: border-color 0.15s, background 0.15s, color 0.15s;
@@ -853,17 +861,27 @@
     }
     .reflexer-radio-label { font-size: 16px; font-weight: 400; color: var(--app-primary); }
     .reflexer-radio.selected .reflexer-radio-label { color: var(--app-primary); }
-    /* "Select Reflexer(s)" active = green on green */
-    .reflexer-radio.selected:has(input[value="select"]) { border-color: var(--green-200); background: var(--green-100); }
-    .reflexer-radio.selected:has(input[value="select"]) .reflexer-radio-dot { border-color: var(--green-500); }
-    .reflexer-radio.selected:has(input[value="select"]) .reflexer-radio-dot::after { background: var(--green-500); }
-    .reflexer-radio.selected:has(input[value="select"]) .reflexer-radio-label { color: var(--green-600); }
+    /* "Select Reflexer(s)" wrapper — handles green box for label + fallback together */
+    .reflexer-select-group {
+      border: 1px solid transparent; border-radius: 6px;
+      background: var(--main-white);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .reflexer-select-group:hover { border-color: var(--black-alpha-200); background: var(--gray-50); }
+    .reflexer-select-group:has(input[value="select"]:checked) { border-color: var(--green-200); background: var(--green-100); }
+    .reflexer-select-group:has(input[value="select"]:checked):hover { border-color: var(--green-200); background: var(--green-100); }
+    /* Inner radio is flush against the wrapper — wrapper provides border/bg */
+    .reflexer-select-group .reflexer-radio { border: none; background: transparent; }
+    .reflexer-select-group .reflexer-radio:hover { border: none; background: transparent; }
+    .reflexer-select-group:has(input[value="select"]:checked) .reflexer-radio-dot { border-color: var(--green-500); }
+    .reflexer-select-group:has(input[value="select"]:checked) .reflexer-radio-dot::after { background: var(--green-500); }
+    .reflexer-select-group:has(input[value="select"]:checked) .reflexer-radio-label { color: var(--green-600); }
     .reflexer-radio-meta { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 14px; font-weight: 500; color: var(--app-primary); }
     .reflexer-select-btn {
       display: none; align-items: center; gap: 10px;
-      margin-left: auto; padding: 0 20px; height: 32px;
+      margin-left: auto; padding: 0 16px; height: 32px;
       background: #fff; color: var(--app-primary); border: 1px solid var(--black-alpha-200); border-radius: 8px;
-      font-family: inherit; font-size: 14px; font-weight: 500;
+      font-family: inherit; font-size: 16px; font-weight: 500;
       cursor: pointer; flex-shrink: 0; transition: background 0.15s;
     }
     .reflexer-radio.selected .reflexer-select-btn { display: inline-flex; }
@@ -873,6 +891,28 @@
     .srb-avatars-inline .srb-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .reflexer-select-btn svg { width: 16px; height: 16px; color: var(--app-primary); }
     .reflexer-select-btn:hover { background: var(--gray-100); }
+    /* Fallback question — shown inside the green box when "Select Reflexer(s)" is active */
+    .reflexer-fallback { display: none; position: relative; padding: 10px 12px 10px 40px; }
+    .reflexer-fallback::before {
+      content: ''; position: absolute; top: 0; left: 12px; right: 12px;
+      height: 1px; background: var(--green-200);
+    }
+    .reflexer-select-group:has(input[value="select"]:checked) .reflexer-fallback { display: block; }
+    .reflexer-fallback-q { margin: 0 0 12px; font-size: 16px; line-height: 1.45; color: var(--app-primary); }
+    .reflexer-fallback-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .reflexer-fallback-opt {
+      display: flex; align-items: center; justify-content: center;
+      padding: 6px 8px; border-radius: 8px;
+      background: var(--main-white); border: 1px solid var(--black-alpha-200);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .reflexer-fallback-opt:hover { border-color: var(--app-primary); }
+    .reflexer-fallback-opt input[type="radio"] { display: none; }
+    .reflexer-fallback-opt:has(input:checked) { border-color: transparent; background: var(--green-500); }
+    .reflexer-fallback-opt:has(input:checked):hover { border-color: transparent; }
+    .reflexer-fallback-opt:has(input:checked) .reflexer-fallback-text { color: #fff; }
+    .reflexer-fallback-text { font-size: 16px; line-height: 1.25; font-weight: 400; color: var(--app-primary); }
 
     /* Select Reflexers — button fallback + shared avatar styles */
     .select-reflexers-btn {
@@ -893,11 +933,26 @@
     .srb-avatars .srb-avatar:last-child { margin-right: 0; }
     .srb-avatars .srb-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
+    /* Announcement modal — opens on page load */
+    .announce-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: center; justify-content: center; z-index: 1400; padding: 16px; }
+    .announce-overlay.visible { display: flex; }
+    .announce-modal { position: relative; background: var(--main-white); width: 100%; max-width: 750px; height: 750px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); overflow: hidden; display: flex; flex-direction: column; }
+    .announce-close { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border: none; background: transparent; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--app-primary); z-index: 2; }
+    .announce-close:hover { background: var(--black-alpha-100); }
+    .announce-close .lucide { width: 32px; height: 32px; }
+    .announce-banner { background: var(--blue-100); flex: 1; min-height: 200px; display: flex; align-items: center; justify-content: center; padding: 0; overflow: hidden; }
+    .announce-banner img { display: block; width: 100%; max-width: 844px; max-height: 100%; height: auto; border-radius: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+    .announce-body { display: flex; flex-direction: column; gap: 12px; padding: 20px 24px 24px; flex-shrink: 0; }
+    .announce-eyebrow { display: flex; align-items: center; gap: 6px; color: var(--app-primary); font-size: 16px; font-weight: 500; }
+    .announce-eyebrow .lucide { width: 18px; height: 18px; }
+    .announce-title { margin: 0; font-size: 24px; font-weight: 700; color: var(--app-primary); line-height: 1.2; }
+    .announce-description { margin: 0; font-size: 16px; color: var(--app-primary); line-height: 1.4; }
+
     /* Prefs modal — "Select Preferences" worker picker */
     .prefs-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: center; justify-content: center; z-index: 1300; padding: 16px; overflow-y: auto; }
     .prefs-overlay.visible { display: flex; }
     .prefs-modal { background: var(--main-white); width: 100%; max-width: 480px; height: 800px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); display: flex; flex-direction: column; max-height: calc(100vh - 32px); overflow: hidden; }
-    .prefs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; }
+    .prefs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 4px; }
     .prefs-title { font-size: 18px; font-weight: 600; color: var(--app-primary); margin: 0; }
     .prefs-close { background: none; border: none; cursor: pointer; padding: 4px; color: var(--app-primary); display: flex; align-items: center; justify-content: center; }
     .prefs-close:hover { opacity: 0.7; }
@@ -905,14 +960,17 @@
     .prefs-context-row { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--app-primary); }
     .prefs-context-row .lucide, .prefs-context-row svg { width: 14px; height: 14px; color: var(--app-primary); flex-shrink: 0; }
     .prefs-summary {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; margin: 0 20px 12px; padding: 10px 12px;
-      background: var(--gray-50); border-radius: 8px;
+      display: flex; flex-direction: column;
+      gap: 8px; margin: 0 20px 12px; padding: 12px 16px;
+      background: var(--navy-100); border-left: 4px solid var(--app-primary); border-radius: 0 8px 8px 0;
     }
+    .prefs-summary-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
     .prefs-summary-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .prefs-summary-count { font-size: 14px; font-weight: 500; color: var(--app-primary); white-space: nowrap; }
-    .prefs-summary-link { font-size: 13px; color: var(--app-primary); background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; text-decoration: underline; }
+    .prefs-summary-left .srb-avatars:empty { display: none; }
+    .prefs-summary-count { font-size: 18px; font-weight: 600; color: var(--app-primary); white-space: nowrap; }
+    .prefs-summary-link { font-size: 16px; font-weight: 600; color: var(--app-primary); background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; text-decoration: underline; }
     .prefs-summary-link:hover { color: var(--stone-900); }
+    .prefs-summary-body { margin: 0; font-size: 13px; line-height: 1.45; color: var(--app-primary); }
     .prefs-search-wrap {
       position: relative; display: inline-flex; align-items: center;
       width: auto; height: 34px;
@@ -951,8 +1009,6 @@
     .prefs-search-wrap.has-value .prefs-search-clear { display: flex; }
     .prefs-chips { display: flex; align-items: center; padding: 0 20px 12px; }
     .prefs-chips-left { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; width: 100%; }
-    .prefs-pool-count { font-size: 16px; font-weight: 500; color: var(--app-primary); white-space: nowrap; }
-    .prefs-pool-count-row { padding: 0 20px 8px; }
     .prefs-chip {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 6px 12px; border-radius: 999px;
@@ -1519,7 +1575,12 @@
         if (shiftDates.length === 0) shiftDates = [new Date(dateVal)];
 
         var html = '<div class="booked-flex-header">';
-        html += '<div class="booked-flex-info"><h3 class="booked-flex-title">' + flexLabel + '</h3>';
+        html += '<div class="booked-flex-info">';
+        html += '<div class="booked-flex-title-row"><h3 class="booked-flex-title">' + flexLabel + '</h3>';
+        if (prefsState.committed.size > 0) {
+          html += '<span class="special-request-tag"><i data-lucide="user-star"></i>Special Request</span>';
+        }
+        html += '</div>';
         if (totalFlexes > 1) html += '<div class="booked-flex-total-hrs"><i data-lucide="calendar-clock"></i><span>' + totalHours + ' hrs total</span></div>';
         html += '<div class="booked-flex-location"><i data-lucide="map-pin"></i><span>' + locationText + '</span></div>';
         var prefsN = prefsState.committed.size;
@@ -1967,7 +2028,6 @@
 
     function renderPrefs() {
       var list = document.getElementById('prefs-list');
-      var info = document.getElementById('prefs-pagination-info');
       if (!list) return;
 
       prefsCurrentRows = prefsFiltered();
@@ -1981,9 +2041,7 @@
         appendPrefsBatch(list);
       }
 
-      var total = prefsCurrentRows.length;
-      if (info) info.textContent = total ? (total + ' Reflexer' + (total === 1 ? '' : 's')) : 'No reflexers found.';
-      if (!total) list.innerHTML = '<div class="prefs-state">No reflexers found.</div>';
+      if (!prefsCurrentRows.length) list.innerHTML = '<div class="prefs-state">No reflexers found.</div>';
 
       // Update count + avatar preview in summary — only show when > 0 selected
       var count = prefsState.draft.size;
@@ -2271,6 +2329,15 @@
       loadVariant(DEFAULT_VARIANT);  // calls init() internally
       wireRoster();
       wirePrefs();
+      wireAnnounce();
+    }
+
+    function wireAnnounce() {
+      var overlay = document.getElementById('announce-overlay');
+      var closeBtn = document.getElementById('announce-close');
+      if (!overlay || !closeBtn) return;
+      closeBtn.addEventListener('click', function() { overlay.classList.remove('visible'); });
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.classList.remove('visible'); });
     }
 
     if (document.readyState === 'loading') {
@@ -2708,24 +2775,38 @@
           </div>
         <!-- Select Reflexers — radio toggle + prefs modal -->
         <div class="form-question" style="margin-top:16px;">
-          <label class="form-label" style="display:flex;align-items:center;gap:6px;">Select Reflexers
-            <span class="info-tooltip-wrap">
-              <i data-lucide="info" class="info-icon"></i>
-              <span class="info-tooltip">Your favorites and roster are always prioritized for every Flex. You can also request specific Reflexers for this shift. If you need more people than you've selected, we'll fill the remaining spots with the best available.</span>
-            </span>
-          </label>
+          <label class="form-label">Select Reflexers</label>
           <div class="reflexer-radios" id="reflexer-radios">
             <label class="reflexer-radio selected">
               <input type="radio" name="reflexer-mode" value="best" checked />
               <span class="reflexer-radio-dot"></span>
               <span class="reflexer-radio-label">Best Available</span>
+              <span class="info-tooltip-wrap">
+                <i data-lucide="info" class="info-icon"></i>
+                <span class="info-tooltip">Your favorites and roster are always prioritized for every Flex.</span>
+              </span>
             </label>
-            <label class="reflexer-radio">
-              <input type="radio" name="reflexer-mode" value="select" />
-              <span class="reflexer-radio-dot"></span>
-              <span class="reflexer-radio-label">Select Reflexer(s)</span>
-              <button type="button" class="reflexer-select-btn js-open-prefs" id="srb-select-btn">Select <i data-lucide="plus"></i></button>
-            </label>
+            <div class="reflexer-select-group">
+              <label class="reflexer-radio">
+                <input type="radio" name="reflexer-mode" value="select" />
+                <span class="reflexer-radio-dot"></span>
+                <span class="reflexer-radio-label">Select Reflexer(s)</span>
+                <button type="button" class="reflexer-select-btn js-open-prefs" id="srb-select-btn">Select <i data-lucide="plus"></i></button>
+              </label>
+              <div class="reflexer-fallback">
+                <p class="reflexer-fallback-q">If they can't work the Flex, what should we do?</p>
+                <div class="reflexer-fallback-opts">
+                  <label class="reflexer-fallback-opt">
+                    <input type="radio" name="reflexer-fallback-mode" value="best" checked />
+                    <span class="reflexer-fallback-text">Find the Best Available</span>
+                  </label>
+                  <label class="reflexer-fallback-opt">
+                    <input type="radio" name="reflexer-fallback-mode" value="cancel" />
+                    <span class="reflexer-fallback-text">Cancel the Flex</span>
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         </div>
@@ -3395,6 +3476,16 @@
         <div class="prefs-context-row"><i data-lucide="calendar"></i><span id="prefs-ctx-date">Date</span></div>
         <div class="prefs-context-row"><i data-lucide="clock"></i><span id="prefs-ctx-time">Time</span></div>
       </div>
+      <div class="prefs-summary" id="prefs-summary" hidden>
+        <div class="prefs-summary-row">
+          <div class="prefs-summary-left">
+            <span class="srb-avatars" id="prefs-summary-avatars"></span>
+            <span class="prefs-summary-count" id="prefs-summary-count">0 Selected</span>
+          </div>
+          <button type="button" class="prefs-summary-link" id="prefs-view-selections">View Selections</button>
+        </div>
+        <p class="prefs-summary-body">Selected Reflexers receive priority access to this Flex. After their claim window ends, we will either cancel the Flex or open up the Flex to all your favorites and the best available talent from our community depending on your selection.</p>
+      </div>
       <div class="prefs-chips" id="prefs-chips">
         <div class="prefs-chips-left">
           <button type="button" class="prefs-chip" data-filter="favorites"><i data-lucide="plus"></i><span>Favorites</span></button>
@@ -3407,22 +3498,24 @@
           </div>
         </div>
       </div>
-      <div class="prefs-summary" id="prefs-summary" hidden>
-        <div class="prefs-summary-left">
-          <span class="srb-avatars" id="prefs-summary-avatars"></span>
-          <span class="prefs-summary-count" id="prefs-summary-count">0 Selected</span>
-        </div>
-        <button type="button" class="prefs-summary-link" id="prefs-view-selections">View Selections</button>
-      </div>
-      <div class="prefs-pool-count-row">
-        <span class="prefs-pool-count" id="prefs-pagination-info"></span>
-      </div>
       <div id="prefs-list" class="prefs-list">
         <div class="prefs-state">Loading…</div>
       </div>
       <div class="prefs-footer">
         <button type="button" class="prefs-cancel-btn" id="prefs-cancel">Cancel</button>
         <button type="button" class="prefs-save-btn" id="prefs-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="announce-overlay" class="announce-overlay visible" role="dialog" aria-labelledby="announce-title">
+    <div class="announce-modal">
+      <button type="button" class="announce-close" id="announce-close" aria-label="Close"><i data-lucide="x"></i></button>
+      <div class="announce-banner"><img src="images/announcements/special-requests.png" alt="Special Requests preview" /></div>
+      <div class="announce-body">
+        <div class="announce-eyebrow"><i data-lucide="bell"></i><span>Recent Update</span></div>
+        <h2 id="announce-title" class="announce-title">Special Requests</h2>
+        <p class="announce-description">You can now hand-pick the Reflexers you want for a Flex. Selected Reflexers get priority access during a claim window. If they are unavailable, you can choose whether to cancel the Flex or open it up to your favorites and the best available talent in our community.</p>
       </div>
     </div>
   </div>
