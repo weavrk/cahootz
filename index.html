@@ -460,7 +460,7 @@
     .success-icon-wrap { display: flex; width: 40px; height: 40px; position: relative; align-self: center; justify-content: center; align-items: center; margin-bottom: 8px; }
     .success-icon-bg { width: 100%; height: 100%; background-color: var(--green-100); position: absolute; top: 0; left: 0; border-radius: 50%; z-index: 0; }
     .success-icon { position: relative; z-index: 1; width: 32px; height: 32px; color: var(--green-500); }
-    .success-heading { font-size: 24px; font-weight: 600; color: var(--green-500); text-align: center; margin-bottom: 32px; }
+    .success-heading { font-size: 24px; font-weight: 600; color: var(--green-500); text-align: center; margin: 0 0 32px; }
     .success-divider { border: none; border-top: 1px solid var(--black-alpha-100); margin: 0 -24px 32px; }
     .booked-flex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0; }
     .booked-flex-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
@@ -524,6 +524,58 @@
     .role-chip.checked::after { background: var(--green-600); border-color: var(--green-600); box-shadow: inset 0 0 0 3px var(--green-100), inset 0 0 0 5px var(--green-600); }
     .role-chip .chip-icon, .role-chip .lucide, .role-chip svg { width: 18px; height: 18px; flex-shrink: 0; stroke: currentColor; color: var(--app-primary); }
     .role-chip.checked .chip-icon, .role-chip.checked .lucide, .role-chip.checked svg { color: var(--green-600); stroke: var(--green-600); }
+
+    /* Home page — port from RetailerHome.tsx */
+    .home-main { display: flex; flex-direction: column; max-width: 1200px; padding-right: 120px; }
+    .home-tiles { display: flex; flex-direction: row; gap: 16px; margin-top: 16px; }
+    .home-tiles-img { display: block; width: 31.25%; max-width: 100%; height: auto; }
+
+    /* Home shift sections */
+    .home-shifts-section { display: flex; flex-direction: column; gap: 8px; margin-top: 32px; }
+    .home-shifts-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .home-shifts-title { flex-grow: 1; margin: 0; font-size: 18px; font-weight: 600; color: var(--app-primary); }
+    .home-verification { display: flex; align-items: center; gap: 8px; }
+    .home-verification-label { font-size: 14px; font-weight: 600; color: var(--app-primary); }
+    .home-verification-tag { padding: 2px 8px; background: var(--gray-100); color: var(--gray-600); border-radius: 6px; font-size: 14px; font-weight: 600; }
+    .home-view-all { padding: 6px 14px; background: var(--main-white); border: 1px solid var(--black-alpha-200); border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--app-primary); cursor: pointer; }
+    .home-view-all:hover { background: var(--gray-50); }
+    .home-shifts-list { margin-top: 8px; border: 1px solid var(--black-alpha-200); border-radius: 8px; overflow: hidden; background: var(--main-white); }
+    .home-shifts-list-scroll { max-height: 400px; overflow-y: auto; }
+    .home-shift {
+      display: flex; flex-direction: row; align-items: center; gap: 16px;
+      padding: 12px 16px; column-gap: 16px;
+      border-bottom: 1px solid var(--app-quaternary);
+    }
+    .home-shift:last-child { border-bottom: none; }
+    .home-shift-date-col { display: flex; flex-direction: column; gap: 4px; width: 180px; min-width: 180px; max-width: 180px; flex-shrink: 0; }
+    .home-shift-date-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .home-shift-date { font-size: 16px; font-weight: 600; color: var(--app-primary); white-space: nowrap; }
+    .home-shift-today-tag { padding: 2px 6px; background: var(--green-100); color: var(--green-600); border-radius: 4px; font-size: 12px; font-weight: 600; }
+    .home-shift-info-col { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0; overflow: hidden; }
+    .home-shift-meta-row { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--app-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .home-shift-meta-row .lucide, .home-shift-meta-row svg { width: 16px; height: 16px; color: var(--app-secondary); flex-shrink: 0; }
+    .home-shift-worker-col { display: flex; align-items: center; gap: 8px; width: 280px; min-width: 280px; max-width: 280px; flex-shrink: 0; }
+    .home-shift-worker-img { width: 48px; height: 60px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: var(--gray-100); }
+    .home-shift-worker-img img { width: 100%; height: 100%; object-fit: cover; }
+    .home-shift-worker-placeholder { width: 48px; height: 48px; border-radius: 8px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--app-secondary); }
+    .home-shift-worker-placeholder svg { width: 22px; height: 22px; stroke-width: 1.8; }
+    .home-shift-worker-name { font-size: 16px; font-weight: 500; color: var(--app-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .home-shift-worker-pending { font-size: 16px; font-weight: 600; color: var(--app-primary); }
+    .home-shift-worker-stack { display: flex; flex-direction: column; gap: 4px; min-width: 0; align-items: flex-start; }
+    .home-shift-worker-stack .home-shift-worker-name { font-size: 13px; font-weight: 500; color: var(--app-primary); }
+    .home-shift-worker-status { font-size: 16px; font-weight: 600; color: var(--app-primary); white-space: nowrap; }
+    .home-shift-worker-subline { display: flex; align-items: center; gap: 8px; }
+    .home-shift-special-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: var(--green-100); color: var(--green-600); border-radius: 6px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+    .home-shift-special-tag .lucide, .home-shift-special-tag svg { width: 12px; height: 12px; color: var(--green-600); }
+    .home-shift-tags-col { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; width: 120px; min-width: 120px; max-width: 120px; justify-content: flex-end; flex-shrink: 0; }
+    .home-shift-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+    .home-shift-tag .lucide, .home-shift-tag svg { width: 12px; height: 12px; }
+    .home-shift-tag-eta { background: var(--blue-100); color: var(--app-primary); }
+    .home-shift-tag-code { background: var(--yellow-100); color: var(--app-primary); }
+    .home-shift-tag-complete { background: var(--green-100); color: var(--green-600); }
+    @media (max-width: 900px) {
+      .home-shift-worker-col, .home-shift-tags-col { display: none; }
+    }
 
     /* Right column - RequestSummary + RequestWorkerCalendar; fixed width, clipped when narrow */
     .right-column {
@@ -861,6 +913,7 @@
     }
     .reflexer-radio-label { font-size: 16px; font-weight: 400; color: var(--app-primary); }
     .reflexer-radio.selected .reflexer-radio-label { color: var(--app-primary); }
+    .reflexer-radio-label-group { display: inline-flex; align-items: center; gap: 4px; }
     /* "Select Reflexer(s)" wrapper — handles green box for label + fallback together */
     .reflexer-select-group {
       border: 1px solid transparent; border-radius: 6px;
@@ -892,14 +945,18 @@
     .reflexer-select-btn svg { width: 16px; height: 16px; color: var(--app-primary); }
     .reflexer-select-btn:hover { background: var(--gray-100); }
     /* Fallback question — shown inside the green box when "Select Reflexer(s)" is active */
-    .reflexer-fallback { display: none; position: relative; padding: 10px 12px 10px 40px; }
+    .reflexer-fallback { display: none; position: relative; padding: 10px 12px; }
     .reflexer-fallback::before {
       content: ''; position: absolute; top: 0; left: 12px; right: 12px;
       height: 1px; background: var(--green-200);
     }
     .reflexer-select-group:has(input[value="select"]:checked) .reflexer-fallback { display: block; }
+    .reflexer-select-group:has(input[value="select"]:checked):has(.form-alert.is-visible) .reflexer-fallback { display: none; }
+    .reflexer-select-group:has(.form-alert.is-visible) .reflexer-select-btn {
+      pointer-events: none; opacity: 0.45; cursor: not-allowed;
+    }
     .reflexer-fallback-q { margin: 0 0 12px; font-size: 16px; line-height: 1.45; color: var(--app-primary); }
-    .reflexer-fallback-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .reflexer-fallback-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .reflexer-fallback-opt {
       display: flex; align-items: center; justify-content: center;
       padding: 6px 8px; border-radius: 8px;
@@ -913,6 +970,16 @@
     .reflexer-fallback-opt:has(input:checked):hover { border-color: transparent; }
     .reflexer-fallback-opt:has(input:checked) .reflexer-fallback-text { color: #fff; }
     .reflexer-fallback-text { font-size: 16px; line-height: 1.25; font-weight: 400; color: var(--app-primary); }
+
+    /* Generic form alert — white bg + accent-green left border */
+    .form-alert {
+      display: none;
+      background: #fff; border-left: 4px solid var(--green-500);
+      padding: 14px 16px; border-radius: 0 6px 6px 0;
+    }
+    .form-alert.is-visible { display: block; }
+    .form-alert-title { margin: 0 0 2px; font-size: 16px; font-weight: 700; color: var(--app-primary); }
+    .form-alert-body { margin: 0; font-size: 16px; line-height: 1.4; color: var(--app-primary); }
 
     /* Select Reflexers — button fallback + shared avatar styles */
     .select-reflexers-btn {
@@ -936,40 +1003,50 @@
     /* Announcement modal — opens on page load */
     .announce-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: center; justify-content: center; z-index: 1400; padding: 16px; }
     .announce-overlay.visible { display: flex; }
-    .announce-modal { position: relative; background: var(--main-white); width: 100%; max-width: 750px; height: 750px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); overflow: hidden; display: flex; flex-direction: column; }
+    .announce-modal { position: relative; background: var(--main-white); width: 100%; max-width: 600px; height: 600px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); overflow: hidden; display: flex; flex-direction: column; }
     .announce-close { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border: none; background: transparent; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--app-primary); z-index: 2; }
     .announce-close:hover { background: var(--black-alpha-100); }
     .announce-close .lucide { width: 32px; height: 32px; }
     .announce-banner { background: var(--blue-100); flex: 1; min-height: 200px; display: flex; align-items: center; justify-content: center; padding: 0; overflow: hidden; }
-    .announce-banner img { display: block; width: 100%; max-width: 844px; max-height: 100%; height: auto; border-radius: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+    .announce-banner img { display: block; width: 95%; max-width: 844px; max-height: 100%; height: auto; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
     .announce-body { display: flex; flex-direction: column; gap: 12px; padding: 20px 24px 24px; flex-shrink: 0; }
     .announce-eyebrow { display: flex; align-items: center; gap: 6px; color: var(--app-primary); font-size: 16px; font-weight: 500; }
     .announce-eyebrow .lucide { width: 18px; height: 18px; }
     .announce-title { margin: 0; font-size: 24px; font-weight: 700; color: var(--app-primary); line-height: 1.2; }
+    .announce-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .announce-beta-tag { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; background: var(--blue-100); color: #2563AC; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
     .announce-description { margin: 0; font-size: 16px; color: var(--app-primary); line-height: 1.4; }
 
     /* Prefs modal — "Select Preferences" worker picker */
     .prefs-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: center; justify-content: center; z-index: 1300; padding: 16px; overflow-y: auto; }
     .prefs-overlay.visible { display: flex; }
     .prefs-modal { background: var(--main-white); width: 100%; max-width: 480px; height: 800px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); display: flex; flex-direction: column; max-height: calc(100vh - 32px); overflow: hidden; }
-    .prefs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 4px; }
+    .prefs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px 4px; }
     .prefs-title { font-size: 18px; font-weight: 600; color: var(--app-primary); margin: 0; }
     .prefs-close { background: none; border: none; cursor: pointer; padding: 4px; color: var(--app-primary); display: flex; align-items: center; justify-content: center; }
     .prefs-close:hover { opacity: 0.7; }
-    .prefs-context { display: flex; flex-direction: column; gap: 4px; padding: 0 20px 16px; border-bottom: 1px solid var(--black-alpha-100); margin-bottom: 12px; }
+    .prefs-context { display: flex; flex-direction: column; gap: 4px; padding: 0 24px 16px; border-bottom: 1px solid var(--app-quaternary); margin-bottom: 16px; }
     .prefs-context-row { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--app-primary); }
     .prefs-context-row .lucide, .prefs-context-row svg { width: 14px; height: 14px; color: var(--app-primary); flex-shrink: 0; }
     .prefs-summary {
+      position: relative;
       display: flex; flex-direction: column;
-      gap: 8px; margin: 0 20px 12px; padding: 12px 16px;
-      background: var(--navy-100); border-left: 4px solid var(--app-primary); border-radius: 0 8px 8px 0;
+      gap: 8px; margin: 0 24px 12px; padding: 12px 16px 12px 20px;
+      background: var(--main-white); border: 1px solid var(--quaternary); border-radius: 0 8px 8px 0; box-shadow: 0 0 10px rgba(38, 38, 38, 0.1);
     }
-    .prefs-summary-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .prefs-summary-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .prefs-summary-left .srb-avatars:empty { display: none; }
-    .prefs-summary-count { font-size: 18px; font-weight: 600; color: var(--app-primary); white-space: nowrap; }
-    .prefs-summary-link { font-size: 16px; font-weight: 600; color: var(--app-primary); background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; text-decoration: underline; }
-    .prefs-summary-link:hover { color: var(--stone-900); }
+    .prefs-summary[hidden] { display: none; }
+    .prefs-summary::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--app-primary); border-radius: 0;
+    }
+    .prefs-summary-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .prefs-summary-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gray-100); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--app-secondary); overflow: hidden; }
+    .prefs-summary-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .prefs-summary-name { font-size: 16px; font-weight: 600; color: var(--app-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    .prefs-summary-tag-slot { display: inline-flex; flex-shrink: 0; }
+    .prefs-summary-remove { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px; background: none; border: none; color: var(--app-primary); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; border-radius: 6px; flex-shrink: 0; }
+    .prefs-summary-remove:hover { background: var(--gray-100); }
+    .prefs-summary-remove .lucide { width: 14px; height: 14px; }
     .prefs-summary-body { margin: 0; font-size: 13px; line-height: 1.45; color: var(--app-primary); }
     .prefs-search-wrap {
       position: relative; display: inline-flex; align-items: center;
@@ -1007,7 +1084,7 @@
     .prefs-search-clear:hover { color: var(--stone-900); }
     .prefs-search-clear svg { width: 14px; height: 14px; }
     .prefs-search-wrap.has-value .prefs-search-clear { display: flex; }
-    .prefs-chips { display: flex; align-items: center; padding: 0 20px 12px; }
+    .prefs-chips { display: flex; align-items: center; padding: 0 24px 16px; border-bottom: 1px solid var(--app-quaternary); }
     .prefs-chips-left { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; width: 100%; }
     .prefs-chip {
       display: inline-flex; align-items: center; gap: 6px;
@@ -1021,40 +1098,52 @@
     .prefs-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
     .prefs-chip.active { background: var(--app-primary); color: #fff; border-color: var(--app-primary); }
     .prefs-chip.active:hover { background: var(--stone-900); border-color: var(--stone-900); }
-    .prefs-list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 20px 12px; display: flex; flex-direction: column; gap: 2px; }
+    .prefs-list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 24px 12px; display: flex; flex-direction: column; gap: 2px; }
     .prefs-state { padding: 32px 0; text-align: center; color: var(--text-hint); font-size: 14px; }
     .prefs-row {
       display: flex; align-items: center; gap: 12px;
-      padding: 6px 12px; cursor: pointer;
-      border-radius: 8px;
+      padding: 8px 12px 8px 0; cursor: pointer;
+      border-bottom: 1px solid var(--app-quaternary);
       transition: background 0.15s;
     }
+    .prefs-row:last-child { border-bottom: none; }
     .prefs-row:hover { background: var(--gray-50); }
-    .prefs-row.selected { background: var(--gray-50); }
     .prefs-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gray-100); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--app-secondary); overflow: hidden; }
     .prefs-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .prefs-meta { flex: 1; min-width: 0; }
-    .prefs-name { font-size: 14px; font-weight: 500; color: var(--app-primary); margin: 0; line-height: 1.3; display: grid; grid-template-columns: 100px max-content; align-items: center; gap: 6px; }
-    .prefs-name-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .prefs-tag { font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
+    .prefs-meta { flex: 1; min-width: 0; display: grid; grid-template-columns: 100px max-content; column-gap: 8px; align-items: center; }
+    .prefs-name { font-size: 14px; font-weight: 500; color: var(--app-primary); margin: 0; line-height: 1.3; grid-column: 1; grid-row: 1; min-width: 0; }
+    .prefs-sub { grid-column: 1; grid-row: 2; }
+    .prefs-meta > .prefs-tag { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+    .prefs-name-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+    .prefs-tag { font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; }
     .prefs-tag svg, .prefs-tag .lucide { width: 12px; height: 12px; }
     .prefs-tag.fav { background: var(--pink-200); color: var(--app-primary); }
     .prefs-tag.app { background: #DBEAFE; color: var(--app-primary); }
+    .prefs-tag.unavail { background: var(--app-primary); color: #fff; }
+    .prefs-row.is-unavailable { cursor: not-allowed; }
+    .prefs-row.is-unavailable:hover { background: transparent; }
+    .prefs-row.is-unavailable .prefs-avatar,
+    .prefs-row.is-unavailable .prefs-meta,
+    .prefs-row.is-unavailable .prefs-checkbox { opacity: 0.45; }
     .prefs-sub { font-size: 12px; color: var(--text-hint); margin-top: 2px; }
     .prefs-checkbox {
-      width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--app-tertiary);
+      width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--app-tertiary);
       background: var(--main-white); display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; cursor: pointer; transition: background 0.15s, border-color 0.15s;
+      position: relative;
     }
-    .prefs-row.selected .prefs-checkbox { background: var(--app-primary); border-color: var(--app-primary); }
-    .prefs-checkbox svg { width: 14px; height: 14px; color: #fff; opacity: 0; }
-    .prefs-row.selected .prefs-checkbox svg { opacity: 1; }
-    .prefs-pagination { display: flex; align-items: center; justify-content: space-between; padding: 8px 20px 12px; font-size: 12px; color: var(--text-hint); }
+    .prefs-row.selected .prefs-checkbox { border-color: var(--app-primary); }
+    .prefs-row.selected .prefs-checkbox::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--app-primary);
+    }
+    .prefs-checkbox svg { display: none; }
+    .prefs-pagination { display: flex; align-items: center; justify-content: space-between; padding: 8px 24px 12px; font-size: 12px; color: var(--text-hint); }
     .prefs-page-btns { display: flex; gap: 4px; }
     .prefs-page-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--app-secondary); display: flex; align-items: center; justify-content: center; }
     .prefs-page-btn:disabled { color: var(--app-tertiary); cursor: not-allowed; }
     .prefs-page-btn:hover:not(:disabled) { color: var(--app-primary); }
-    .prefs-footer { display: flex; gap: 8px; padding: 12px 20px 16px; border-top: 1px solid var(--black-alpha-100); background: var(--main-white); }
+    .prefs-footer { display: flex; gap: 8px; padding: 12px 24px 16px; border-top: 1px solid var(--black-alpha-100); background: var(--main-white); }
     .prefs-cancel-btn, .prefs-save-btn {
       padding: 8px 20px; border-radius: 8px; font-family: inherit;
       font-size: 14px; font-weight: 500; cursor: pointer;
@@ -1076,8 +1165,8 @@
           <img src="assets/r-logomark.svg" alt="Reflex" class="logo-img logo-logomark" />
         </a>
         <div class="side-nav-card">
-          <a class="nav-item" href="#" title="Home"><i data-lucide="home"></i><span class="nav-label">Home</span></a>
-          <a class="nav-item active" href="#" title="Request Flex"><i data-lucide="user-plus"></i><span class="nav-label">Request Flex</span></a>
+          <a class="nav-item js-nav-page" data-page="home" href="#" title="Home"><i data-lucide="home"></i><span class="nav-label">Home</span></a>
+          <a class="nav-item active js-nav-page" data-page="request-flex" href="#" title="Request Flex"><i data-lucide="user-plus"></i><span class="nav-label">Request Flex</span></a>
           <a class="nav-item" href="#" title="Calendar"><i data-lucide="calendar"></i><span class="nav-label">Calendar</span></a>
           <a class="nav-item js-open-roster" href="#" title="Reflexers"><i data-lucide="users"></i><span class="nav-label">Reflexers</span></a>
           <a class="nav-item" href="#" title="Reports"><i data-lucide="chart-spline"></i><span class="nav-label">Reports</span></a>
@@ -1121,12 +1210,13 @@
 
     <!-- Main content (AppLayout container) -->
     <main class="main-content">
-      <header class="page-heading">
-        <i data-lucide="user-plus" class="page-heading-icon"></i>
-        <h1 class="page-heading-title">Request Flex</h1>
+      <header class="page-heading" id="page-heading">
+        <i data-lucide="user-plus" class="page-heading-icon" id="page-heading-icon"></i>
+        <h1 class="page-heading-title" id="page-heading-title">Request Flex</h1>
       </header>
 
       <div id="variant-host"></div>
+      <div id="home-page" hidden></div>
     </main>
   </div>
 
@@ -1287,6 +1377,7 @@
 
       var startBlock = document.querySelector('.start-block');
       var endBlock = document.querySelector('.end-block');
+      update48hrAlert();
 
       function getProposedShiftCount() {
         var repeatSel = document.getElementById('repeat-select');
@@ -1585,9 +1676,15 @@
         html += '<div class="booked-flex-location"><i data-lucide="map-pin"></i><span>' + locationText + '</span></div>';
         var prefsN = prefsState.committed.size;
         if (prefsN > 0) {
-          html += '<div class="booked-flex-reflexers"><i data-lucide="users"></i>' +
-            '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
-            '<span>' + prefsN + ' Selected</span></div>';
+          var bfFirstId = Array.from(prefsState.committed)[0];
+          var bfW = (rosterCache || []).find(function(x) { return x.id === bfFirstId; });
+          var bfName = bfW ? shortName(bfW.name) : '';
+          var fallbackInput = document.querySelector('input[name="reflexer-fallback-mode"]:checked');
+          var fallbackVal = fallbackInput ? fallbackInput.value : 'best';
+          var suffix = fallbackVal === 'cancel' ? ' (Cancel if unavailable)' : '';
+          html += '<div class="booked-flex-reflexers"><i data-lucide="user-star"></i>' +
+            '<span class="srb-avatars-inline">' + prefsAvatarsHtml([bfFirstId]) + '</span>' +
+            '<span>' + escapeHtml(bfName) + escapeHtml(suffix) + '</span></div>';
         }
         html += '</div>';
         html += '<button class="cancel-btn">Cancel</button></div>';
@@ -1628,6 +1725,20 @@
         endBlock.querySelector('.form-select-hour').value = '';
         endBlock.querySelector('.form-select-min').value = '';
         document.querySelectorAll('.date-input').forEach(function(inp) { if (inp._flatpickr) inp._flatpickr.clear(); });
+        // Reset Special Request state
+        prefsState.committed.clear();
+        prefsState.draft.clear();
+        var bestRadio = document.querySelector('input[name="reflexer-mode"][value="best"]');
+        if (bestRadio) {
+          bestRadio.checked = true;
+          document.querySelectorAll('.reflexer-radio').forEach(function(r) { r.classList.remove('selected'); });
+          var bestRadioLabel = bestRadio.closest('.reflexer-radio');
+          if (bestRadioLabel) bestRadioLabel.classList.add('selected');
+        }
+        var fallbackBest = document.querySelector('input[name="reflexer-fallback-mode"][value="best"]');
+        if (fallbackBest) fallbackBest.checked = true;
+        updateSelectReflexersBtn();
+        if (window.__update48hrAlert) window.__update48hrAlert();
         updateSummaryPanel(); updateDatetimeSummary(); updateRolesSummary(); updateFlexInfo(); checkFormValid();
       });
 
@@ -1720,6 +1831,7 @@
               else { calSelectedDate = null; renderCalendar(); }
             }
             updateDatetimeSummary(); updateSummaryPanel(); checkFormValid();
+            if (typeof update48hrAlert === 'function') update48hrAlert();
           },
           onReady: function(selectedDates, dateStr, fp) {
             var cal = fp.calendarContainer;
@@ -1942,6 +2054,7 @@
     var APPROVED_COUNT = 43;
     var brandPool = null;   // built once after first fetch
     var tagMap = {};        // worker.id → 'favorite' | 'approved' | null
+    var unavailableMap = {}; // worker.id → true (deterministic ~25% via hash)
 
     function buildBrandPool(workers) {
       var pool = workers.filter(function(w) {
@@ -1952,9 +2065,11 @@
       });
       pool.sort(function(a, b) { return (a.name || '').localeCompare(b.name || ''); });
       tagMap = {};
+      unavailableMap = {};
       for (var i = 0; i < pool.length; i++) {
         if (i < FAVORITES_COUNT) tagMap[pool[i].id] = 'favorite';
         else if (i < FAVORITES_COUNT + APPROVED_COUNT) tagMap[pool[i].id] = 'approved';
+        if (hashStr(pool[i].id) % 4 === 0) unavailableMap[pool[i].id] = true;
       }
       brandPool = pool;
       return pool;
@@ -2008,16 +2123,17 @@
         : escapeHtml(initials(w.name));
       var count = w.shifts_on_reflex != null ? w.shifts_on_reflex : 0;
       var sub = count + (count === 1 ? ' Flex' : ' Flexes');
-      return '<div class="prefs-row' + (selected ? ' selected' : '') + '" data-id="' + escapeHtml(w.id) + '">' +
+      var unavailable = !!unavailableMap[w.id];
+      return '<div class="prefs-row' + (selected ? ' selected' : '') + (unavailable ? ' is-unavailable' : '') + '" data-id="' + escapeHtml(w.id) + '">' +
         '<div class="prefs-avatar">' + avatar + '</div>' +
         '<div class="prefs-meta">' +
-          '<p class="prefs-name"><span class="prefs-name-text">' + escapeHtml(shortName(w.name)) + '</span>' +
-            (tagMap[w.id] === 'favorite' ? '<span class="prefs-tag fav"><i data-lucide="heart"></i>Favorite</span>' : '') +
-            (tagMap[w.id] === 'approved' ? '<span class="prefs-tag app"><i data-lucide="circle-check"></i>Approved</span>' : '') +
-          '</p>' +
+          '<p class="prefs-name"><span class="prefs-name-text">' + escapeHtml(shortName(w.name)) + '</span></p>' +
           '<div class="prefs-sub">' + sub + '</div>' +
+          (tagMap[w.id] === 'favorite' ? '<span class="prefs-tag fav"><i data-lucide="heart"></i>Favorite</span>' : '') +
+          (tagMap[w.id] === 'approved' ? '<span class="prefs-tag app"><i data-lucide="circle-check"></i>Approved</span>' : '') +
         '</div>' +
-        '<div class="prefs-checkbox"><i data-lucide="check"></i></div>' +
+        (unavailable ? '<span class="prefs-tag unavail">Unavailable</span>' : '') +
+        '<div class="prefs-checkbox"></div>' +
       '</div>';
     }
 
@@ -2043,15 +2159,7 @@
 
       if (!prefsCurrentRows.length) list.innerHTML = '<div class="prefs-state">No reflexers found.</div>';
 
-      // Update count + avatar preview in summary — only show when > 0 selected
-      var count = prefsState.draft.size;
-      var summaryEl = document.getElementById('prefs-summary');
-      if (summaryEl) summaryEl.hidden = count === 0;
-      var countEl = document.getElementById('prefs-summary-count');
-      if (countEl) countEl.textContent = count + ' Selected';
-      var avEl = document.getElementById('prefs-summary-avatars');
-      if (avEl) avEl.innerHTML = prefsAvatarsHtml(Array.from(prefsState.draft).slice(0, 3));
-
+      updatePrefsSummary();
       renderPrefsChips();
       if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
     }
@@ -2077,6 +2185,28 @@
         var src = avatarFor(w);
         return '<span class="srb-avatar">' + (src ? '<img src="' + escapeHtml(src) + '" alt="">' : escapeHtml(initials(w.name))) + '</span>';
       }).join('');
+    }
+
+    function updatePrefsSummary() {
+      var summaryEl = document.getElementById('prefs-summary');
+      if (!summaryEl) return;
+      var count = prefsState.draft.size;
+      summaryEl.hidden = count === 0;
+      if (count === 0) return;
+      var id = Array.from(prefsState.draft)[0];
+      var row = document.querySelector('.prefs-row[data-id="' + (window.CSS && CSS.escape ? CSS.escape(id) : id) + '"]');
+      var avEl = document.getElementById('prefs-summary-avatar');
+      var nameEl = document.getElementById('prefs-summary-name');
+      var tagEl = document.getElementById('prefs-summary-tag');
+      if (row) {
+        var rowAvatar = row.querySelector('.prefs-avatar');
+        var rowName = row.querySelector('.prefs-name-text');
+        var rowTag = row.querySelector('.prefs-tag.fav, .prefs-tag.app');
+        if (avEl && rowAvatar) avEl.innerHTML = rowAvatar.innerHTML;
+        if (nameEl && rowName) nameEl.textContent = rowName.textContent;
+        if (tagEl) tagEl.innerHTML = rowTag ? rowTag.outerHTML : '';
+      }
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
     }
 
     function syncPrefsContext() {
@@ -2144,24 +2274,32 @@
         if (n === 0) {
           selectBtn.innerHTML = 'Select <i data-lucide="plus"></i>';
         } else {
+          var firstId = Array.from(prefsState.committed)[0];
+          var w = (rosterCache || []).find(function(x) { return x.id === firstId; });
+          var displayName = w ? shortName(w.name) : (n + ' Selected');
           selectBtn.innerHTML =
-            '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
-            '<span>' + n + ' Selected</span>' +
-            '<i data-lucide="plus"></i>';
+            '<span class="srb-avatars-inline">' + prefsAvatarsHtml([firstId]) + '</span>' +
+            '<span>' + escapeHtml(displayName) + '</span>';
         }
       }
       // Update Request Summary row (Opt 01)
       var sumRow = document.getElementById('summary-reflexers-row');
       var sumText = document.getElementById('summary-reflexers-text');
+      var sumIconWrap = sumRow ? sumRow.querySelector('.summary-icon-wrap') : null;
       if (sumText) {
         if (n === 0) {
           if (sumRow) sumRow.classList.remove('has-selections');
+          if (sumIconWrap) sumIconWrap.innerHTML = '<i data-lucide="users" class="summary-icon"></i>';
           sumText.textContent = 'Best Available';
         } else {
           if (sumRow) sumRow.classList.add('has-selections');
+          if (sumIconWrap) sumIconWrap.innerHTML = '<i data-lucide="user-star" class="summary-icon"></i>';
+          var sumFirstId = Array.from(prefsState.committed)[0];
+          var sumW = (rosterCache || []).find(function(x) { return x.id === sumFirstId; });
+          var sumName = sumW ? shortName(sumW.name) : '';
           sumText.innerHTML =
-            '<span class="srb-avatars-inline">' + prefsAvatarsHtml(Array.from(prefsState.committed).slice(0, 3)) + '</span>' +
-            '<span>' + n + ' Selected</span>';
+            '<span class="srb-avatars-inline">' + prefsAvatarsHtml([sumFirstId]) + '</span>' +
+            '<span>' + escapeHtml(sumName) + ' requested</span>';
         }
       }
       if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
@@ -2181,26 +2319,24 @@
             radios.querySelectorAll('.reflexer-radio').forEach(function(r) { r.classList.remove('selected'); });
             radio.classList.add('selected');
             radio.querySelector('input[type="radio"]').checked = true;
+            if (window.__update48hrAlert) window.__update48hrAlert();
           }
         }
-        // Row toggle — update in-place without re-rendering the list
+        // Row toggle — single-select (radio behavior)
         var row = e.target.closest('.prefs-row');
-        if (row) {
+        if (row && !row.classList.contains('is-unavailable')) {
           var id = row.getAttribute('data-id');
-          if (prefsState.draft.has(id)) { prefsState.draft.delete(id); row.classList.remove('selected'); }
-          else { prefsState.draft.add(id); row.classList.add('selected'); }
-          // Update just the summary + count, not the whole list
-          var count = prefsState.draft.size;
-          var summaryEl = document.getElementById('prefs-summary');
-          if (summaryEl) summaryEl.hidden = count === 0;
-          var countEl = document.getElementById('prefs-summary-count');
-          if (countEl) countEl.textContent = count + ' Selected';
-          var avEl = document.getElementById('prefs-summary-avatars');
-          if (avEl) avEl.innerHTML = prefsAvatarsHtml(Array.from(prefsState.draft).slice(0, 3));
-          // Re-render checkbox icon inside the clicked row
-          var cb = row.querySelector('.prefs-checkbox');
-          if (cb) { cb.innerHTML = '<i data-lucide="check"></i>'; }
-          if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+          var listEl = document.getElementById('prefs-list');
+          if (prefsState.draft.has(id)) {
+            prefsState.draft.delete(id);
+            row.classList.remove('selected');
+          } else {
+            prefsState.draft.clear();
+            if (listEl) listEl.querySelectorAll('.prefs-row.selected').forEach(function(r) { r.classList.remove('selected'); });
+            prefsState.draft.add(id);
+            row.classList.add('selected');
+          }
+          updatePrefsSummary();
         }
       });
 
@@ -2209,12 +2345,17 @@
       var saveBtn = document.getElementById('prefs-save');
       var overlay = document.getElementById('prefs-overlay');
       var search = document.getElementById('prefs-search');
-      var viewSel = document.getElementById('prefs-view-selections');
-
       if (closeBtn) closeBtn.addEventListener('click', closePrefs);
       if (cancelBtn) cancelBtn.addEventListener('click', closePrefs);
       if (saveBtn) saveBtn.addEventListener('click', savePrefs);
       if (overlay) overlay.addEventListener('click', function(e) { if (e.target === overlay) closePrefs(); });
+      var removeBtn = document.getElementById('prefs-summary-remove');
+      if (removeBtn) removeBtn.addEventListener('click', function() {
+        prefsState.draft.clear();
+        var listEl = document.getElementById('prefs-list');
+        if (listEl) listEl.querySelectorAll('.prefs-row.selected').forEach(function(r) { r.classList.remove('selected'); });
+        updatePrefsSummary();
+      });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           var ov = document.getElementById('prefs-overlay');
@@ -2256,14 +2397,6 @@
           appendPrefsBatch(this);
         }
       });
-      if (viewSel) viewSel.addEventListener('click', function() {
-        prefsState.onlySelected = !prefsState.onlySelected;
-        this.textContent = prefsState.onlySelected ? 'View All' : 'View Selections';
-        if (search) { search.value = ''; prefsState.query = ''; }
-        if (searchWrap) searchWrap.classList.remove('has-value');
-        renderPrefs();
-      });
-
       var chips = document.getElementById('prefs-chips');
       if (chips) chips.addEventListener('click', function(e) {
         var chip = e.target.closest('.prefs-chip');
@@ -2323,6 +2456,106 @@
       });
     }
 
+    // Special Request alerts — top-level so the closure isn't tied to init() call timing
+    function update48hrAlert() {
+      var alertEl = document.getElementById('srb-48hr-alert');
+      if (!alertEl) return;
+      var titleEl = alertEl.querySelector('.form-alert-title');
+      var bodyEl = alertEl.querySelector('.form-alert-body');
+      var selectMode = document.querySelector('input[name="reflexer-mode"][value="select"]:checked');
+      if (!selectMode) { alertEl.classList.remove('is-visible'); return; }
+      var mainDateInput = document.querySelector('.form-section .date-input-wrap:not(.ends-date) .date-input') || document.querySelectorAll('.date-input')[0];
+      var dateVal = mainDateInput ? mainDateInput.value : '';
+      var startBlock = document.querySelector('.start-block');
+      var endBlock = document.querySelector('.end-block');
+      var sh = startBlock ? parseInt(startBlock.querySelector('.form-select-hour').value, 10) : NaN;
+      var sm = startBlock ? parseInt(startBlock.querySelector('.form-select-min').value, 10) : NaN;
+      var eh = endBlock ? parseInt(endBlock.querySelector('.form-select-hour').value, 10) : NaN;
+      var em = endBlock ? parseInt(endBlock.querySelector('.form-select-min').value, 10) : NaN;
+      var missingDateTime = !dateVal || isNaN(sh) || isNaN(sm) || isNaN(eh) || isNaN(em);
+      if (missingDateTime) {
+        if (titleEl) titleEl.textContent = 'Date and Time Needed';
+        if (bodyEl) bodyEl.textContent = 'Please select a date and time so we can reference Reflexer availability.';
+        alertEl.classList.add('is-visible');
+        return;
+      }
+      var sampm = startBlock.querySelector('.form-select-ampm').value;
+      var hour24 = sampm === 'PM' && sh !== 12 ? sh + 12 : (sampm === 'AM' && sh === 12 ? 0 : sh);
+      var shiftStart = new Date(dateVal);
+      if (isNaN(shiftStart.getTime())) { alertEl.classList.remove('is-visible'); return; }
+      shiftStart.setHours(hour24, sm, 0, 0);
+      var diffMs = shiftStart - new Date();
+      if (diffMs < 48 * 60 * 60 * 1000) {
+        if (titleEl) titleEl.textContent = '48 Hour Advance Notice Required';
+        if (bodyEl) bodyEl.textContent = 'Special Requests need 48 hours so your selected Reflexer has enough time to claim the Flex. Push out the start time or select Best Available for sooner shifts.';
+        alertEl.classList.add('is-visible');
+      } else {
+        alertEl.classList.remove('is-visible');
+      }
+    }
+    window.__update48hrAlert = update48hrAlert;
+
+    // Page switching — Home vs Request Flex (cloned from #tpl-home)
+    var PAGE_CONFIG = {
+      'home':          { icon: 'home',      title: 'Home' },
+      'request-flex':  { icon: 'user-plus', title: 'Request Flex' }
+    };
+    function showPage(pageId) {
+      var config = PAGE_CONFIG[pageId];
+      if (!config) return;
+      // Update heading
+      var headingTitle = document.getElementById('page-heading-title');
+      var headingIcon = document.getElementById('page-heading-icon');
+      if (headingTitle) headingTitle.textContent = config.title;
+      if (headingIcon) {
+        headingIcon.setAttribute('data-lucide', config.icon);
+        // Replace the i with a fresh one so lucide renders the new icon
+        var newIcon = document.createElement('i');
+        newIcon.setAttribute('data-lucide', config.icon);
+        newIcon.id = 'page-heading-icon';
+        newIcon.className = 'page-heading-icon';
+        headingIcon.parentNode.replaceChild(newIcon, headingIcon);
+      }
+      // Toggle page containers
+      var variantHost = document.getElementById('variant-host');
+      var homePage = document.getElementById('home-page');
+      if (pageId === 'home') {
+        if (variantHost) variantHost.hidden = true;
+        if (homePage) {
+          homePage.hidden = false;
+          if (!homePage.firstChild) {
+            var tpl = document.getElementById('tpl-home');
+            if (tpl) homePage.appendChild(tpl.content.cloneNode(true));
+          }
+        }
+      } else {
+        if (homePage) homePage.hidden = true;
+        if (variantHost) variantHost.hidden = false;
+      }
+      // Update nav active state
+      document.querySelectorAll('.js-nav-page').forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('data-page') === pageId);
+      });
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+    function wireNav() {
+      document.body.addEventListener('click', function(e) {
+        var navLink = e.target.closest('.js-nav-page');
+        if (navLink) {
+          e.preventDefault();
+          showPage(navLink.getAttribute('data-page'));
+          return;
+        }
+        // Tile shortcuts on Home (e.g., the "Request Flex" tile jumps to that page)
+        var tile = e.target.closest('.js-nav-go');
+        if (tile) {
+          e.preventDefault();
+          var target = tile.getAttribute('data-target');
+          if (target === 'request-flex') showPage('request-flex');
+        }
+      });
+    }
+
     function bootApp() {
       setupShell();
       setupDevMenu();
@@ -2330,6 +2563,10 @@
       wireRoster();
       wirePrefs();
       wireAnnounce();
+      wireNav();
+      // Catch every change anywhere — alert function early-exits if conditions aren't met
+      document.body.addEventListener('change', update48hrAlert);
+      update48hrAlert();
     }
 
     function wireAnnounce() {
@@ -2348,6 +2585,168 @@
     window.addEventListener('load', function() { if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons(); });
   </script>
 
+
+  <!-- Home page template — cloned into #home-page when Home nav is active. -->
+  <template id="tpl-home">
+    <div class="home-main">
+      <div class="home-tiles">
+        <img src="images/home/home-tiles.png" alt="Request Flex / Calendar" class="home-tiles-img" />
+      </div>
+
+      <section class="home-shifts-section">
+        <div class="home-shifts-header">
+          <h2 class="home-shifts-title">Upcoming Flexes</h2>
+          <div class="home-verification">
+            <span class="home-verification-label">Verification Code (Expires Fri, May 9)</span>
+            <span class="home-verification-tag">VKHK4</span>
+          </div>
+        </div>
+        <div class="home-shifts-list home-shifts-list-scroll">
+          <div class="home-shift">
+            <div class="home-shift-date-col">
+              <div class="home-shift-date-row">
+                <span class="home-shift-date">Sat, May 9</span>
+                <span class="home-shift-today-tag">Today!</span>
+              </div>
+              <div class="home-shift-meta-row"><i data-lucide="clock"></i><span>4 hrs · 1pm – 5pm</span></div>
+            </div>
+            <div class="home-shift-info-col">
+              <div class="home-shift-meta-row"><i data-lucide="map-pin"></i><span>Downtown - Austin</span></div>
+              <div class="home-shift-meta-row"><i data-lucide="shopping-bag"></i><span>Sales Associate, Cashier</span></div>
+            </div>
+            <div class="home-shift-worker-col">
+              <div class="home-shift-worker-img"><img src="images/avatars/female/pexels_037_cleaned.jpg" alt=""></div>
+              <span class="home-shift-worker-name">Aaliyah P.</span>
+            </div>
+            <div class="home-shift-tags-col"></div>
+          </div>
+          <div class="home-shift">
+            <div class="home-shift-date-col">
+              <div class="home-shift-date-row">
+                <span class="home-shift-date">Mon, May 11</span>
+              </div>
+              <div class="home-shift-meta-row"><i data-lucide="clock"></i><span>8 hrs · 8am – 4pm</span></div>
+            </div>
+            <div class="home-shift-info-col">
+              <div class="home-shift-meta-row"><i data-lucide="map-pin"></i><span>Galleria - Houston</span></div>
+              <div class="home-shift-meta-row"><i data-lucide="smile"></i><span>Greeter, Floor Organization</span></div>
+            </div>
+            <div class="home-shift-worker-col">
+              <div class="home-shift-worker-img"><img src="images/avatars/male/pexels_002_cleaned.jpg" alt=""></div>
+              <span class="home-shift-worker-name">Marcus T.</span>
+            </div>
+            <div class="home-shift-tags-col"></div>
+          </div>
+          <div class="home-shift">
+            <div class="home-shift-date-col">
+              <div class="home-shift-date-row">
+                <span class="home-shift-date">Tue, May 12</span>
+              </div>
+              <div class="home-shift-meta-row"><i data-lucide="clock"></i><span>6 hrs · 10am – 4pm</span></div>
+            </div>
+            <div class="home-shift-info-col">
+              <div class="home-shift-meta-row"><i data-lucide="map-pin"></i><span>Midtown - Dallas</span></div>
+              <div class="home-shift-meta-row"><i data-lucide="shopping-bag"></i><span>Sales Associate</span></div>
+            </div>
+            <div class="home-shift-worker-col">
+              <div class="home-shift-worker-placeholder"><i data-lucide="user-search"></i></div>
+              <span class="home-shift-worker-pending">Finding Reflexer</span>
+            </div>
+            <div class="home-shift-tags-col"></div>
+          </div>
+          <div class="home-shift">
+            <div class="home-shift-date-col">
+              <div class="home-shift-date-row">
+                <span class="home-shift-date">Wed, May 13</span>
+              </div>
+              <div class="home-shift-meta-row"><i data-lucide="clock"></i><span>5 hrs · 11am – 4pm</span></div>
+            </div>
+            <div class="home-shift-info-col">
+              <div class="home-shift-meta-row"><i data-lucide="map-pin"></i><span>Downtown - Austin</span></div>
+              <div class="home-shift-meta-row"><i data-lucide="shirt"></i><span>Fitting Rooms</span></div>
+            </div>
+            <div class="home-shift-worker-col">
+              <div class="home-shift-worker-placeholder"><i data-lucide="user-search"></i></div>
+              <div class="home-shift-worker-stack">
+                <span class="home-shift-worker-status">Checking Availability</span>
+                <div class="home-shift-worker-subline">
+                  <span class="home-shift-worker-name">Priya N.</span>
+                  <span class="home-shift-special-tag"><i data-lucide="user-star"></i>Special Request</span>
+                </div>
+              </div>
+            </div>
+            <div class="home-shift-tags-col"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-shifts-section">
+        <div class="home-shifts-header">
+          <h2 class="home-shifts-title">Recent Flexes</h2>
+          <button type="button" class="home-view-all">View All</button>
+        </div>
+        <div class="home-shifts-list">
+          <div class="home-shift">
+            <div class="home-shift-date-col">
+              <div class="home-shift-date-row">
+                <span class="home-shift-date">Fri, May 8</span>
+              </div>
+              <div class="home-shift-meta-row"><i data-lucide="clock"></i><span>8 hrs · 9am – 5pm</span></div>
+            </div>
+            <div class="home-shift-info-col">
+              <div class="home-shift-meta-row"><i data-lucide="map-pin"></i><span>Downtown - Austin</span></div>
+              <div class="home-shift-meta-row"><i data-lucide="shopping-bag"></i><span>Sales Associate</span></div>
+            </div>
+            <div class="home-shift-worker-col">
+              <div class="home-shift-worker-img"><img src="images/avatars/female/pexels_005_cleaned.jpg" alt=""></div>
+              <span class="home-shift-worker-name">Jordan H.</span>
+            </div>
+            <div class="home-shift-tags-col">
+              <span class="home-shift-tag home-shift-tag-complete"><i data-lucide="check"></i>Complete</span>
+            </div>
+          </div>
+          <div class="home-shift">
+            <div class="home-shift-date-col">
+              <div class="home-shift-date-row">
+                <span class="home-shift-date">Thu, May 7</span>
+              </div>
+              <div class="home-shift-meta-row"><i data-lucide="clock"></i><span>4 hrs · 12pm – 4pm</span></div>
+            </div>
+            <div class="home-shift-info-col">
+              <div class="home-shift-meta-row"><i data-lucide="map-pin"></i><span>Galleria - Houston</span></div>
+              <div class="home-shift-meta-row"><i data-lucide="circle-dollar-sign"></i><span>Cashier</span></div>
+            </div>
+            <div class="home-shift-worker-col">
+              <div class="home-shift-worker-img"><img src="images/avatars/male/pexels_005_cleaned.jpg" alt=""></div>
+              <span class="home-shift-worker-name">Devin R.</span>
+            </div>
+            <div class="home-shift-tags-col">
+              <span class="home-shift-tag home-shift-tag-complete"><i data-lucide="check"></i>Complete</span>
+            </div>
+          </div>
+          <div class="home-shift">
+            <div class="home-shift-date-col">
+              <div class="home-shift-date-row">
+                <span class="home-shift-date">Wed, May 6</span>
+              </div>
+              <div class="home-shift-meta-row"><i data-lucide="clock"></i><span>6 hrs · 10am – 4pm</span></div>
+            </div>
+            <div class="home-shift-info-col">
+              <div class="home-shift-meta-row"><i data-lucide="map-pin"></i><span>Midtown - Dallas</span></div>
+              <div class="home-shift-meta-row"><i data-lucide="smile"></i><span>Greeter</span></div>
+            </div>
+            <div class="home-shift-worker-col">
+              <div class="home-shift-worker-img"><img src="images/avatars/female/pexels_007_cleaned.jpg" alt=""></div>
+              <span class="home-shift-worker-name">Sofia G.</span>
+            </div>
+            <div class="home-shift-tags-col">
+              <span class="home-shift-tag home-shift-tag-complete"><i data-lucide="check"></i>Complete</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </template>
 
   <!-- Variant templates — cloned by JS into #variant-host. Edit each independently. -->
   <template id="tpl-original">
@@ -2780,19 +3179,25 @@
             <label class="reflexer-radio selected">
               <input type="radio" name="reflexer-mode" value="best" checked />
               <span class="reflexer-radio-dot"></span>
-              <span class="reflexer-radio-label">Best Available</span>
-              <span class="info-tooltip-wrap">
-                <i data-lucide="info" class="info-icon"></i>
-                <span class="info-tooltip">Your favorites and roster are always prioritized for every Flex.</span>
+              <span class="reflexer-radio-label-group">
+                <span class="reflexer-radio-label">Best Available</span>
+                <span class="info-tooltip-wrap">
+                  <i data-lucide="info" class="info-icon"></i>
+                  <span class="info-tooltip">Your favorites and roster are always prioritized for every Flex.</span>
+                </span>
               </span>
             </label>
             <div class="reflexer-select-group">
               <label class="reflexer-radio">
                 <input type="radio" name="reflexer-mode" value="select" />
                 <span class="reflexer-radio-dot"></span>
-                <span class="reflexer-radio-label">Select Reflexer(s)</span>
+                <span class="reflexer-radio-label">Special Request</span>
                 <button type="button" class="reflexer-select-btn js-open-prefs" id="srb-select-btn">Select <i data-lucide="plus"></i></button>
               </label>
+              <div class="form-alert" id="srb-48hr-alert" style="margin: 0 12px 12px;">
+                <p class="form-alert-title">48 Hour Advance Notice Required</p>
+                <p class="form-alert-body">Special Requests need 48 hours so your selected Reflexer has enough time to claim the Flex. Push out the start time or select Best Available for sooner shifts.</p>
+              </div>
               <div class="reflexer-fallback">
                 <p class="reflexer-fallback-q">If they can't work the Flex, what should we do?</p>
                 <div class="reflexer-fallback-opts">
@@ -3468,7 +3873,7 @@
   <div id="prefs-overlay" class="prefs-overlay" aria-hidden="true">
     <div class="prefs-modal" role="dialog" aria-labelledby="prefs-title">
       <div class="prefs-header">
-        <h2 id="prefs-title" class="prefs-title">Select Reflexer(s)</h2>
+        <h2 id="prefs-title" class="prefs-title">Special Request</h2>
         <button id="prefs-close" class="prefs-close" aria-label="Close"><i data-lucide="x"></i></button>
       </div>
       <div class="prefs-context">
@@ -3478,13 +3883,13 @@
       </div>
       <div class="prefs-summary" id="prefs-summary" hidden>
         <div class="prefs-summary-row">
-          <div class="prefs-summary-left">
-            <span class="srb-avatars" id="prefs-summary-avatars"></span>
-            <span class="prefs-summary-count" id="prefs-summary-count">0 Selected</span>
-          </div>
-          <button type="button" class="prefs-summary-link" id="prefs-view-selections">View Selections</button>
+          <span class="prefs-summary-avatar" id="prefs-summary-avatar"></span>
+          <span class="prefs-summary-name" id="prefs-summary-name"></span>
+          <span class="prefs-summary-tag-slot" id="prefs-summary-tag"></span>
+          <button type="button" class="prefs-summary-remove" id="prefs-summary-remove" aria-label="Remove selection">
+            <span>Remove</span><i data-lucide="x"></i>
+          </button>
         </div>
-        <p class="prefs-summary-body">Selected Reflexers receive priority access to this Flex. After their claim window ends, we will either cancel the Flex or open up the Flex to all your favorites and the best available talent from our community depending on your selection.</p>
       </div>
       <div class="prefs-chips" id="prefs-chips">
         <div class="prefs-chips-left">
@@ -3514,8 +3919,11 @@
       <div class="announce-banner"><img src="images/announcements/special-requests.png" alt="Special Requests preview" /></div>
       <div class="announce-body">
         <div class="announce-eyebrow"><i data-lucide="bell"></i><span>Recent Update</span></div>
-        <h2 id="announce-title" class="announce-title">Special Requests</h2>
-        <p class="announce-description">You can now hand-pick the Reflexers you want for a Flex. Selected Reflexers get priority access during a claim window. If they are unavailable, you can choose whether to cancel the Flex or open it up to your favorites and the best available talent in our community.</p>
+        <div class="announce-title-row">
+          <h2 id="announce-title" class="announce-title">Special Requests</h2>
+          <span class="announce-beta-tag">Beta</span>
+        </div>
+        <p class="announce-description">You can now hand-pick a specific Reflexer for a Flex. If they are unavailable, you can choose whether to cancel the Flex or open it up the best available from your favorites, roster, and our talent community.</p>
       </div>
     </div>
   </div>
